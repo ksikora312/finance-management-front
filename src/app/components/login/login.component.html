@@ -1,0 +1,25 @@
+<form>
+    <p-panel>
+        <ng-template pTemplate="header">
+            Enter credentials in order to login
+        </ng-template>
+        <div class="flex-column">
+            <span class="p-float-label text-center">
+                <input id="input-username" type="text" pInputText>
+                <label for="input-username">Username/email</label>
+            </span>
+            <span class="p-float-label">
+                <input id="input-password" type="password" pInputText>
+                <label for="input-password">Password</label>
+            </span>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-between">
+                <a id="forgotpassword" routerLink="/forgotpassword">Forgot password?</a>
+                <button pButton class="action-button p-button-submit grid justify-content-center" type="submit"
+                label="Login" (click)="login()"></button>
+            </div>
+        </ng-template>
+    </p-panel>
+</form>
