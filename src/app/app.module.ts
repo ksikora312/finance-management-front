@@ -13,7 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { MenubarModule } from 'primeng/menubar';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { MenubarModule } from 'primeng/menubar';
     LoginComponent
   ],
   imports: [
+    HttpClientModule,
     MenubarModule,
     FormsModule,
     DialogModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MessageService} from 'primeng/api';
-import {MenuItem} from 'primeng/api';
+import { LoginDto } from 'src/app/dto/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,24 +9,23 @@ import {MenuItem} from 'primeng/api';
 })
 export class LoginComponent implements OnInit {
 
-  test = 'd';
-  items: MenuItem[] = [];
-  display: boolean = false;
-  headerValue = "Enter credentials in order to login"
+  model: LoginDto = {login: '', password: ''};//
     
-  constructor() {
+  constructor(private authService: AuthService) {
   }
   
   ngOnInit() {
   }
 
-  showDialog() {
-    this.display = true;
-  }
 
   login() {
-    this.test = 'test';
     console.log("click");
+    this.authService.login(this.model).subscribe(token => {
+      console.log(token.token);
+    }, error => {
+      console.log("incorrect cred")
+      console.log(error);
+    });
   }
 
 }
