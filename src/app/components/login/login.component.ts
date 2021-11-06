@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginDto } from 'src/app/dto/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginSuccess = false;
   model: LoginDto = {login: '', password: ''};
     
-  constructor(private authService: UserService) {
+  constructor(private loginService: UserService, private authService: AuthService ) {
   }
   
   ngOnInit() {
@@ -22,8 +23,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log("click");
-    this.authService.login(this.model).subscribe(token => {
+    this.loginService.login(this.model).subscribe(token => {
       console.log(token.token);
+      this.authService.login(token.token);
       this.incorrectCredentials = false;
       this.loginSuccess = true;
     }, error => {

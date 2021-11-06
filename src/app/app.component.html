@@ -1,5 +1,10 @@
 <p-menubar>
-    <button pButton label="Login" (click)="login()"></button>
-    <button pButton label="Logout" icon="pi pi-power-off"></button>
+    <div *ngIf="!isLogged()">
+        <button pButton label="Sing in" (click)="login()"></button>
+        <button pButton label="Sign up" (click)="register()"></button>
+    </div>
+    <div *ngIf="isLogged()">
+        <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()"></button>
+    </div>
 </p-menubar>
 <router-outlet></router-outlet>

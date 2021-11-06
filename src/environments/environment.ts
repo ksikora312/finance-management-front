@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  hostUrl: 'http://localhost:8080/finance-management/api'
+  hostUrl: 'http://localhost:8080/finance-management/api',
+  homeUrl: '/'
 };
 
 /*
