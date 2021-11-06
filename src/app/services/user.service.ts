@@ -7,7 +7,7 @@ import { LoginDto, TokenDto } from '../dto/user.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
 
   LOGIN_URL = `${environment.hostUrl}/login`;
 
