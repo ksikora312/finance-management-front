@@ -1,0 +1,48 @@
+<form [formGroup]="registrationForm">
+    <p-panel>
+        <div class="flex-column">
+            <p-message class="msg" *ngIf="registrationError" severity="error" text="Provided incorrect data">
+            </p-message>
+            <p-message class="msg" *ngIf="registrationSuccess" severity="success"
+                text="Registration successful.
+                Check email for activation link."></p-message>
+            <div>
+                <span class="p-float-label text-center">
+                    <input id="input-username" type="text" pInputText name="username"
+                        formControlName="username">
+                    <label *ngIf="!registrationForm.get('username').hasError('usernameAlreadyExists')" for="input-username">Username</label>
+                    <label *ngIf="registrationForm.get('username').hasError('usernameAlreadyExists')"for="input-username">Username already exists!</label>
+                </span>
+            </div>
+            <div>
+                <span class="p-float-label text-center">
+                    <input id="input-email" type="text" pInputText name="email"
+                    formControlName="email"> 
+                    <label *ngIf="!registrationForm.get('email').hasError('emailAlreadyExists')"for="input-email">Email</label>
+                    <label *ngIf="registrationForm.get('email').hasError('emailAlreadyExists')"for="input-email">Email already exists!</label>
+                </span>
+            </div>
+            <div formGroupName="passwords">
+                <span class="p-float-label text-center">
+                    <input id="input-password" type="password" pInputText name="password"
+                    formControlName="password">
+                    <label *ngIf="!registrationForm.get('passwords').errors" for="input-password">Password</label>
+                    <label *ngIf="registrationForm.get('passwords').errors" for="input-password">Passwords are not equal!</label>
+                </span>
+                <span class="p-float-label text-center">
+                    <input id="input-repeated-password" type="password" pInputText name="repeated-password"
+                    formControlName="repeatedPassword">
+                    <label *ngIf="!registrationForm.get('passwords').errors" for="input-repeated-password">Repeated password</label>
+                    <label *ngIf="registrationForm.get('passwords').errors" for="input-repeated-password">Passwords are not equal!</label>
+                </span>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-between">
+                <a id="alreadyRegistered" (click)="goToLogin()">AlreadyRegistered? Sign in!</a>
+                <button pButton class="action-button p-button-submit grid justify-content-center" type="submit"
+                    label="Sign up" [disabled]="!registrationForm.valid" (click)="register()"></button>
+            </div>
+        </ng-template>
+    </p-panel>
+</form>

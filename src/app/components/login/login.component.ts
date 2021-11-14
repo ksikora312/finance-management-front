@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LoginDto } from 'src/app/dto/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { RegistrationComponent } from '../registration/registration.component';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginSuccess = false;
   model: LoginDto = {login: '', password: ''};
     
-  constructor(private loginService: UserService, private authService: AuthService ) {
+  constructor(private loginService: UserService, private authService: AuthService, private dialogService: DialogService, private dialogRef: DynamicDialogRef) {
   }
   
   ngOnInit() {
@@ -33,6 +35,11 @@ export class LoginComponent implements OnInit {
       console.log(error);
       this.incorrectCredentials = true;
     });
+  }
+
+  goToRegister() {
+    this.dialogRef.close();
+    this.dialogService.open(RegistrationComponent, {header: "Registration"});
   }
 
 }

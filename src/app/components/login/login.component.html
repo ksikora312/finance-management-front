@@ -3,10 +3,11 @@
         <ng-template pTemplate="header">
             Enter credentials in order to login
         </ng-template>
-        <div ></div>
+        <div></div>
         <div class="flex-column">
-            <p-message class ="msg" *ngIf="incorrectCredentials" severity="error" text="Incorrect credeintials."></p-message>
-            <p-message class ="msg" *ngIf="loginSuccess" severity="success" text="Login successful."></p-message> 
+            <p-message class="msg" *ngIf="incorrectCredentials" severity="error" text="Incorrect credeintials.">
+            </p-message>
+            <p-message class="msg" *ngIf="loginSuccess" severity="success" text="Login successful."></p-message>
             <span class="p-float-label text-center">
                 <input id="input-username" type="text" pInputText name="login" [(ngModel)]="model.login">
                 <label for="input-username">Username/email</label>
@@ -17,10 +18,15 @@
             </span>
         </div>
         <ng-template pTemplate="footer">
-            <div class="flex justify-content-between">
-                <a id="forgotpassword" routerLink="/forgotpassword">Forgot password?</a>
-                <button pButton class="action-button p-button-submit grid justify-content-center" type="submit"
-                label="Login"></button>
+            <div class="flex-column">
+                <div class="flex">
+                    <a id="forgotpassword" routerLink="/forgotpassword">Forgot password?</a>
+                    <button pButton class="action-button p-button-submit grid justify-content-center" type="submit"
+                        label="Login"></button>
+                </div>
+                <div>
+                    <a id="register" (click)="goToRegister()">Not registered? Sign up!</a>
+                </div>
             </div>
         </ng-template>
     </p-panel>

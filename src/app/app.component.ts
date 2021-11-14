@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog'
 import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class AppComponent {
   }
 
   register() {
-    
+    this.dialogService.open(RegistrationComponent, {header: "Register", closable: true});
   }
 
   logout() {
