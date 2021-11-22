@@ -17,12 +17,14 @@ import { HttpClientModule } from '@angular/common/http';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { TodoListOverviewComponent } from './components/todo-list-overview/todo-list-overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    TodoListOverviewComponent
   ],
   imports: [
     MessagesModule,
