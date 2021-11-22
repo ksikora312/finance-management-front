@@ -1,5 +1,8 @@
 <form [formGroup]="registrationForm">
     <p-panel>
+        <ng-template pTemplate="header">
+            Enter data in order to register.
+        </ng-template>
         <div class="flex-column">
             <p-message class="msg" *ngIf="registrationError" severity="error" text="Provided incorrect data">
             </p-message>
