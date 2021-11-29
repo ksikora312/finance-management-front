@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
         { label: 'View outcomes', icon: 'pi pi-list', routerLink: ['/outcomes/view']}
     ]
   },{
-    label: 'Shopping list', icon: 'pi pi-check-square',
+    label: 'Shopping list', icon: 'pi pi-tag',
     items: [
       { label: 'New list', icon: 'pi pi-plus', routerLink: ['/shopping-list/new/list'] },
       { label: 'New item', icon: 'pi pi-plus', routerLink: ['/shopping-list/new/item'] },

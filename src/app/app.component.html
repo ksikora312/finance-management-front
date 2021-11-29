@@ -1,7 +1,7 @@
 <p-menubar [model]="items">
     <div *ngIf="!isLogged()">
-        <button pButton label="Sing in" (click)="login()"></button>
-        <button pButton label="Sign up" (click)="register()"></button>
+        <button pButton label="Sing in" icon="pi pi-sign-in" iconPos="left" (click)="login()"></button>
+        <button pButton label="Sign up" icon="pi pi-sign-out" iconPos="right" (click)="register()"></button>
     </div>
     <div *ngIf="isLogged()">
         <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()"></button>

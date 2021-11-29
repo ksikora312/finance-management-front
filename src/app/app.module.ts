@@ -13,11 +13,15 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenubarModule } from 'primeng/menubar';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { TodoListOverviewComponent } from './components/todo-list-overview/todo-list-overview.component';
+import {ToolbarModule} from 'primeng/toolbar';
+import { TableModule } from 'primeng/table';
+import {CheckboxModule} from 'primeng/checkbox';
+import { AuthTokenInterceptor } from './interceptors/AuthTokenInterceptor';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,9 @@ import { TodoListOverviewComponent } from './components/todo-list-overview/todo-
     TodoListOverviewComponent
   ],
   imports: [
+    CheckboxModule,
+    TableModule,
+    ToolbarModule,
     MessagesModule,
     MessageModule,
     HttpClientModule,
@@ -48,7 +55,11 @@ import { TodoListOverviewComponent } from './components/todo-list-overview/todo-
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthTokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

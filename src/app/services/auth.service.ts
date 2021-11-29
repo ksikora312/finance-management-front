@@ -15,8 +15,8 @@ export class AuthService {
     return sessionStorage.getItem(this.token) != null;
   }
 
-  public getToken(): string | null {
-    return sessionStorage.getItem(this.token);
+  public getToken(): string {
+    return sessionStorage.getItem(this.token)!;
   }
 
   public login(bearerToken: string) {
