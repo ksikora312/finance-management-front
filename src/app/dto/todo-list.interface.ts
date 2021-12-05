@@ -8,9 +8,16 @@ export interface TodoListElement {
     priority: string;
 }
 
-export interface TodoList {
+export interface TodoList extends TodoListOverview {
     elements: Array<TodoListElement>;
-    isPrimary: boolean;
+}
+
+export interface TodoListOverview {
     listId: number;
     name: string;
+    isPrimary: boolean;
+}
+
+export interface TodoListsOverview {
+    lists: Array<TodoListOverview>;
 }

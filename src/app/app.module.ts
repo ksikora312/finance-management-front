@@ -14,23 +14,29 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenubarModule } from 'primeng/menubar';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { TodoListOverviewComponent } from './components/todo-list-overview/todo-list-overview.component';
-import {ToolbarModule} from 'primeng/toolbar';
+import { ToolbarModule } from 'primeng/toolbar';
 import { TableModule } from 'primeng/table';
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
 import { AuthTokenInterceptor } from './interceptors/AuthTokenInterceptor';
+import { TodoListElementComponent } from './components/todo-list-element/todo-list-element.component';
+import { TodoListViewComponent } from './components/todo-list-view/todo-list-view.component';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    TodoListOverviewComponent
+    TodoListOverviewComponent,
+    TodoListElementComponent,
+    TodoListViewComponent
   ],
   imports: [
+    AccordionModule,
     CheckboxModule,
     TableModule,
     ToolbarModule,

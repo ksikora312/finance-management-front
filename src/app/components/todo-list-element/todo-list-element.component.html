@@ -1,0 +1,24 @@
+<div class="flex">
+    <div class="flex mr-3">
+        <p-checkbox [(ngModel)]="element.done" [binary]="true" (click)="markElement()"></p-checkbox>
+    </div>
+    <div class="flex flex-column">
+        <div class="p-component">
+            <h3>{{element.name}}</h3>
+            <!-- <span class="font-bold">name: </span>
+            {{element.name}} -->
+        </div>
+        <div class="mb-2 p-component">
+            <span class="font-bold">priority: </span>
+            {{element.priority}}
+        </div>
+        <div class="mb-2 p-component">
+            <span class="font-bold">description: </span>
+            {{element.description}}
+        </div>
+        <div class="mb-2 p-component">
+            <span class="font-bold">due date: </span>
+            {{element.dueDate}}
+        </div>
+    </div>
+</div>

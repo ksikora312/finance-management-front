@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoList } from 'src/app/dto/todo-list.interface';
+import { TodoListsOverview } from 'src/app/dto/todo-list.interface';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
@@ -9,25 +9,14 @@ import { TodoListService } from 'src/app/services/todo-list.service';
 })
 export class TodoListOverviewComponent implements OnInit {
 
-  todoList = {} as TodoList;
-  
-  tableHeaders = ['Done', 'Name', 'Priority', 'Added', 'Due Date', 'Description']
+  overviews = {} as TodoListsOverview;  
   
   constructor(private todoService: TodoListService) { }
 
   ngOnInit(): void {
-    this.todoService.getPrimaryList().subscribe(r => this.todoList = r);
+    this.todoService.getListsOverview().subscribe(r => this.overviews = r);
   }
 
-  openNewElementDialog() {
 
-  }
 
-  openNewListDialog() {
-
-  }
-
-  deleteList() {
-
-  }
 }

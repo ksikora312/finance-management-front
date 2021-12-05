@@ -1,10 +1,13 @@
-<p-menubar [model]="items">
-    <div *ngIf="!isLogged()">
-        <button pButton label="Sing in" icon="pi pi-sign-in" iconPos="left" (click)="login()"></button>
-        <button pButton label="Sign up" icon="pi pi-sign-out" iconPos="right" (click)="register()"></button>
-    </div>
-    <div *ngIf="isLogged()">
-        <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()"></button>
-    </div>
-</p-menubar>
+<div class="mb-2">
+    <p-menubar [model]="items">
+        <div *ngIf="!isLogged()">
+            <button pButton label="Sing in" icon="pi pi-sign-in" iconPos="left" (click)="login()"></button>
+            <button pButton label="Sign up" icon="pi pi-sign-out" iconPos="right" (click)="register()"></button>
+        </div>
+        <div *ngIf="isLogged()">
+            <button pButton label="Logout" icon="pi pi-power-off" (click)="logout()"></button>
+        </div>
+    </p-menubar>
+</div>
+
 <router-outlet></router-outlet>
