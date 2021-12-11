@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TodoList } from 'src/app/dto/todo-list.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventType, TodoList } from 'src/app/dto/todo-list.interface';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
@@ -11,13 +11,18 @@ export class TodoListViewComponent implements OnInit {
 
   @Input() listId: number = 0;
 
+  @Output() eventType: EventEmitter<EventType> = new EventEmitter<EventType>();
+
   todoList = {} as TodoList;
   
   constructor(private todoService: TodoListService) { }
 
   ngOnInit(): void {
-    console.log(this.listId);
     this.todoService.getListById(this.listId).subscribe(r => this.todoList = r);
+  }
+
+  ngOnChanges() {
+
   }
 
   openNewElementDialog() {
@@ -26,5 +31,13 @@ export class TodoListViewComponent implements OnInit {
 
   deleteList() {
 
+  }
+
+  markAsPrimary() {
+    this.todoService.markListAsPrimary(this.todoList.listId).subscribe(r => {
+      this.todoList = r
+      this.todoService.getListById(this.listId).subscribe(r => this.todoList = r);
+      this.eventType.emit(EventType.PRIMARY_CHANGE);
+    });
   }
 }

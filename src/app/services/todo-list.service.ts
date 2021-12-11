@@ -21,9 +21,14 @@ export class TodoListService {
   }
 
   markElementAs(elementId: number, done: boolean): Observable<TodoListElement> {
-    console.log("MARK " + elementId + " as " + done);
     let url = `${this.ELEMENT_ENDPOINT}/${elementId}/${done}`;
     return this.httpCLient.put(url, null) as Observable<TodoListElement>;
+  }
+
+  markListAsPrimary(listId: number): Observable<TodoList> {
+    console.log("MARKING LIST " + listId + " as primary");
+    let url = `${this.TODO_LIST_BASE_ENDPOINT}/primary/${listId}`;
+    return this.httpCLient.put(url, null) as Observable<TodoList>;
   }
 
   getListsOverview(): Observable<TodoListsOverview> {

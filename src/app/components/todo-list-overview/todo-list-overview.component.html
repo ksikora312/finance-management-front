@@ -1,7 +1,18 @@
+<p-panel >
+    <ng-template pTemplate="header">
+        Todo lists
+    </ng-template>
+    <div class="p-toolbar-group-left">
+        <button pButton class="p-button-success p-button-rounded mr-1" label="List" icon="pi pi-plus" iconPos="left"
+            (click)="openNewListDialog()"></button>
+    </div>
+</p-panel>
 <p-accordion *ngFor="let overview of overviews.lists">
     <div class="mb-2">
         <p-accordionTab header={{overview.name}} [selected]="overview.isPrimary">
-            <app-todo-list-view [listId]="overview.listId">
+            <app-todo-list-view 
+            [listId]="overview.listId"
+            (eventType)="refresh($event)">
             </app-todo-list-view>
         </p-accordionTab>
     </div>

@@ -21,3 +21,7 @@ export interface TodoListOverview {
 export interface TodoListsOverview {
     lists: Array<TodoListOverview>;
 }
+
+export enum EventType {
+    PRIMARY_CHANGE
+}

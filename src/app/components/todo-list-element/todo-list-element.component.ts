@@ -22,7 +22,10 @@ export class TodoListElementComponent implements OnInit {
   constructor(private todoListService: TodoListService) { }
 
   ngOnInit(): void {
-    console.log(this.element);
+  }
+
+  ngOnChanges() {
+    
   }
 
   markElement() {
