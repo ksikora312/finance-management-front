@@ -27,6 +27,11 @@ export interface NewTodoList {
     isPrimary: boolean;
 }
 
+export interface ChangeListName {
+    listId: number;
+    name: string;
+}
+
 export enum EventType {
     PRIMARY_CHANGE
 }

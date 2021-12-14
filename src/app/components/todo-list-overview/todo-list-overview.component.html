@@ -7,9 +7,17 @@
             (click)="openNewListDialog()"></button>
     </div>
 </p-panel>
+
 <p-accordion *ngFor="let overview of overviews.lists">
     <div class="mb-2">
-        <p-accordionTab header={{overview.name}} [selected]="overview.isPrimary">
+        <p-accordionTab [selected]="overview.isPrimary">
+            <ng-template pTemplate="header">
+                {{overview.name}}
+                <div class="p-toolbar-group-right">
+                    <button pButton type="button" icon="pi pi-pencil" class="ml-1 p-button-text p-button-rounded p-button-warning" 
+                    (click)="openEditListName(overview.listId, overview.name)"></button>
+                </div>
+            </ng-template>
             <app-todo-list-view [listId]="overview.listId" (eventType)="refresh($event)">
             </app-todo-list-view>
         </p-accordionTab>
@@ -33,6 +41,26 @@
                 <div class="flex justify-content-center">
                     <button pButton class="action-button p-button-submit" type="submit"
                         label="Create"></button>
+                </div>
+        </ng-template>
+    </p-dialog>
+</form>
+
+<form (ngSubmit)="editListName()">
+    <p-dialog [(visible)]="showEditListNameDialog">
+        <ng-template pTemplate="header">
+            Change list name
+        </ng-template>
+        <div class="flex-column">
+            <span class="p-float-label text-center mb-2">
+                <input id="input-list-name" type="text" pInputText name="List name" [(ngModel)]="listNameModel.name">
+                <label for="input-list-name">List name</label>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+                <div class="flex justify-content-center">
+                    <button pButton class="action-button p-button-submit" type="submit"
+                        label="Change name"></button>
                 </div>
         </ng-template>
     </p-dialog>

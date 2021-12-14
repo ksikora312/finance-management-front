@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogContent } from 'primeng/dynamicdialog/dynamicdialogcontent';
-import { EventType, NewTodoList, TodoListsOverview } from 'src/app/dto/todo-list.interface';
+import { ChangeListName, EventType, NewTodoList, TodoListsOverview } from 'src/app/dto/todo-list.interface';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
@@ -13,7 +13,9 @@ export class TodoListOverviewComponent implements OnInit {
 
   overviews = {} as TodoListsOverview;  
   showNewListDialog = false;
+  showEditListNameDialog = false;
   newListModel = {name: '', isPrimary: false} as NewTodoList;
+  listNameModel = {} as ChangeListName;
 
   @ViewChild('newListDialog', {read: TemplateRef})
   newListDialog!: TemplateRef<any>;
@@ -35,6 +37,18 @@ export class TodoListOverviewComponent implements OnInit {
     this.todoService.createNewList(this.newListModel).subscribe(r => 
       this.refresh());
       this.showNewListDialog = false;
+  }
+
+  openEditListName(listId: number, listName: string) {
+    this.listNameModel.listId = listId;
+    this.listNameModel.name = listName;
+    this.showEditListNameDialog = true;
+  }
+
+  editListName() {
+    this.todoService.changeListName(this.listNameModel).subscribe(r => 
+      this.refresh());
+      this.showEditListNameDialog = false;
   }
 
   refresh(eventType?: EventType) {

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { NewTodoList, TodoList, TodoListElement, TodoListsOverview } from '../dto/todo-list.interface';
+import { ChangeListName, NewTodoList, TodoList, TodoListElement, TodoListsOverview } from '../dto/todo-list.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +21,13 @@ export class TodoListService {
   }
 
   markElementAs(elementId: number, done: boolean): Observable<TodoListElement> {
-    let url = `${this.ELEMENT_ENDPOINT}/${elementId}/${done}`;
+    const url = `${this.ELEMENT_ENDPOINT}/${elementId}/${done}`;
     return this.httpCLient.put(url, null) as Observable<TodoListElement>;
   }
 
   markListAsPrimary(listId: number): Observable<TodoList> {
     console.log("MARKING LIST " + listId + " as primary");
-    let url = `${this.TODO_LIST_BASE_ENDPOINT}/primary/${listId}`;
+    const url = `${this.TODO_LIST_BASE_ENDPOINT}/primary/${listId}`;
     return this.httpCLient.put(url, null) as Observable<TodoList>;
   }
 
@@ -36,12 +36,17 @@ export class TodoListService {
   }
 
   getListById(listId: number): Observable<TodoList> {
-    let url = `${this.TODO_LIST_BASE_ENDPOINT}/${listId}`;
+    const url = `${this.TODO_LIST_BASE_ENDPOINT}/${listId}`;
     return this.httpCLient.get(url) as Observable<TodoList>;
   }
 
   createNewList(list: NewTodoList): Observable<any> {
     return this.httpCLient.post(this.TODO_LIST_BASE_ENDPOINT, list) as Observable<any>;
+  }
+
+  changeListName(changeListName: ChangeListName): Observable<any> {
+    const url = `${this.TODO_LIST_BASE_ENDPOINT}/${changeListName.listId}/${changeListName.name}`;
+    return this.httpCLient.patch(url, null) as Observable<any>;
   }
 
 }
