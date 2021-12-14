@@ -1,4 +1,4 @@
-<p-panel >
+<p-panel>
     <ng-template pTemplate="header">
         Todo lists
     </ng-template>
@@ -10,10 +10,30 @@
 <p-accordion *ngFor="let overview of overviews.lists">
     <div class="mb-2">
         <p-accordionTab header={{overview.name}} [selected]="overview.isPrimary">
-            <app-todo-list-view 
-            [listId]="overview.listId"
-            (eventType)="refresh($event)">
+            <app-todo-list-view [listId]="overview.listId" (eventType)="refresh($event)">
             </app-todo-list-view>
         </p-accordionTab>
     </div>
 </p-accordion>
+
+<form (ngSubmit)="createNewList()">
+    <p-dialog [(visible)]="showNewListDialog">
+        <ng-template pTemplate="header">
+            New todo list
+        </ng-template>
+        <div class="flex-column">
+            <span class="p-float-label text-center mb-2">
+                <input id="input-list-name" type="text" pInputText name="List name" [(ngModel)]="newListModel.name">
+                <label for="input-list-name">List name</label>
+            </span>
+            <p-checkbox [(ngModel)]="newListModel.isPrimary" name="primary" [binary]="true" [label]="'default?'">
+            </p-checkbox>
+        </div>
+        <ng-template pTemplate="footer">
+                <div class="flex justify-content-center">
+                    <button pButton class="action-button p-button-submit" type="submit"
+                        label="Create"></button>
+                </div>
+        </ng-template>
+    </p-dialog>
+</form>

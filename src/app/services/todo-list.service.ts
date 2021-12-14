@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TodoList, TodoListElement, TodoListsOverview } from '../dto/todo-list.interface';
+import { NewTodoList, TodoList, TodoListElement, TodoListsOverview } from '../dto/todo-list.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,10 @@ export class TodoListService {
   getListById(listId: number): Observable<TodoList> {
     let url = `${this.TODO_LIST_BASE_ENDPOINT}/${listId}`;
     return this.httpCLient.get(url) as Observable<TodoList>;
+  }
+
+  createNewList(list: NewTodoList): Observable<any> {
+    return this.httpCLient.post(this.TODO_LIST_BASE_ENDPOINT, list) as Observable<any>;
   }
 
 }

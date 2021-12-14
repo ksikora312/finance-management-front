@@ -22,6 +22,11 @@ export interface TodoListsOverview {
     lists: Array<TodoListOverview>;
 }
 
+export interface NewTodoList {
+    name: string;
+    isPrimary: boolean;
+}
+
 export enum EventType {
     PRIMARY_CHANGE
 }
