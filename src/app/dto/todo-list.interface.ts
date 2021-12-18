@@ -51,5 +51,7 @@ export interface ChangeListName {
 export enum EventType {
     PRIMARY_CHANGE,
     NEW_ELEMENT,
-    STATUS_CHANGE
+    STATUS_CHANGE,
+    ELEMENT_DELETE,
+    LIST_DELETE
 }

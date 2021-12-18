@@ -40,6 +40,12 @@ export class TodoListElementComponent implements OnInit {
     });
   }
 
+  deleteElement() {
+    this.todoListService.deleteListElement(this.element.elementId).subscribe(r => {
+      this.eventType.emit(EventType.ELEMENT_DELETE);
+    })
+  }
+
   private prettyFormatPriority() {
     this.element.priority = this.element.priority.replace('_', ' ');
   }

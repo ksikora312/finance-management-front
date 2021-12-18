@@ -55,4 +55,14 @@ export class TodoListService {
     return this.httpCLient.post(this.ELEMENT_ENDPOINT, newElement) as Observable<TodoList>;
   }
 
+  deleteListElement(elementId: number): Observable<TodoList> {
+    const url = `${this.ELEMENT_ENDPOINT}/${elementId}`;
+    return this.httpCLient.delete(url) as Observable<TodoList>;
+  }
+
+  deleteList(listId: number): Observable<any> {
+    const url = `${this.TODO_LIST_BASE_ENDPOINT}/${listId}`;
+    return this.httpCLient.delete(url);
+  }
+
 }

@@ -47,7 +47,9 @@ export class TodoListViewComponent implements OnInit {
   }
 
   deleteList() {
-
+    this.todoService.deleteList(this.todoList.listId).subscribe(r => {
+      this.eventType.emit(EventType.LIST_DELETE);
+    })
   }
 
   markAsPrimary() {
@@ -59,7 +61,14 @@ export class TodoListViewComponent implements OnInit {
   }
 
   refresh(event: EventType) {
-    this.sortElements();
+    switch(event) {
+      case EventType.STATUS_CHANGE:
+        this.sortElements();
+        break;
+      case EventType.ELEMENT_DELETE:
+        this.ngOnInit();
+        break;
+    }
   }
 
   private sortElements() {
