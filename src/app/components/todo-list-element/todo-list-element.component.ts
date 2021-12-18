@@ -24,6 +24,7 @@ export class TodoListElementComponent implements OnInit {
   constructor(private todoListService: TodoListService) { }
 
   ngOnInit(): void {
+    this.prettyFormatPriority();
   }
 
   ngOnChanges() {
@@ -34,8 +35,13 @@ export class TodoListElementComponent implements OnInit {
     this.todoListService.markElementAs(this.element.elementId, this.element.done)
     .subscribe(result => {
       this.element = result;
+      this.prettyFormatPriority();
       this.eventType.emit(EventType.STATUS_CHANGE);
     });
+  }
+
+  private prettyFormatPriority() {
+    this.element.priority = this.element.priority.replace('_', ' ');
   }
 
 }
