@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ChangeListName, NewTodoList, TodoList, TodoListElement, TodoListsOverview } from '../dto/todo-list.interface';
+import { ChangeListName, NewTodoList, NewTodoListElement, TodoList, TodoListElement, TodoListsOverview } from '../dto/todo-list.interface';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,11 @@ export class TodoListService {
   changeListName(changeListName: ChangeListName): Observable<any> {
     const url = `${this.TODO_LIST_BASE_ENDPOINT}/${changeListName.listId}/${changeListName.name}`;
     return this.httpCLient.patch(url, null) as Observable<any>;
+  }
+
+  createNewElement(newElement: NewTodoListElement): Observable<TodoList> {
+    newElement.dueDate = new DatePipe('en-US').transform(newElement.dueDate, 'dd.MM.yyyy HH:mm')!;
+    return this.httpCLient.post(this.ELEMENT_ENDPOINT, newElement) as Observable<TodoList>;
   }
 
 }

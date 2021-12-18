@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TodoList, TodoListElement } from 'src/app/dto/todo-list.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventType, TodoList, TodoListElement } from 'src/app/dto/todo-list.interface';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
@@ -19,6 +19,8 @@ export class TodoListElementComponent implements OnInit {
     priority: ''
   };
 
+  @Output() eventType: EventEmitter<EventType> = new EventEmitter<EventType>();
+
   constructor(private todoListService: TodoListService) { }
 
   ngOnInit(): void {
@@ -30,7 +32,10 @@ export class TodoListElementComponent implements OnInit {
 
   markElement() {
     this.todoListService.markElementAs(this.element.elementId, this.element.done)
-    .subscribe(result => this.element = result);
+    .subscribe(result => {
+      this.element = result;
+      this.eventType.emit(EventType.STATUS_CHANGE);
+    });
   }
 
 }

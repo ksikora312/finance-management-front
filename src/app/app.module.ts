@@ -25,6 +25,8 @@ import { AuthTokenInterceptor } from './interceptors/AuthTokenInterceptor';
 import { TodoListElementComponent } from './components/todo-list-element/todo-list-element.component';
 import { TodoListViewComponent } from './components/todo-list-view/todo-list-view.component';
 import { AccordionModule } from 'primeng/accordion';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { AccordionModule } from 'primeng/accordion';
     InputTextModule,
     BrowserModule,
     AppRoutingModule,
+    CalendarModule,
+    DropdownModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

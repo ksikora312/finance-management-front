@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EventType, TodoList } from 'src/app/dto/todo-list.interface';
+import { EventType, NewTodoListElement, Priority, TodoList } from 'src/app/dto/todo-list.interface';
+import { SortingService } from 'src/app/services/SortingService';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
@@ -14,11 +15,17 @@ export class TodoListViewComponent implements OnInit {
   @Output() eventType: EventEmitter<EventType> = new EventEmitter<EventType>();
 
   todoList = {} as TodoList;
+  showNewElementDialog = false;
+  newElement = {} as NewTodoListElement;
+  availablePriorities = Object.keys(Priority).filter(v => isNaN(Number(v)) === false).map((key) => Priority[Number(key)].toString());
   
-  constructor(private todoService: TodoListService) { }
+  constructor(private todoService: TodoListService, private sortingService: SortingService) { }
 
   ngOnInit(): void {
-    this.todoService.getListById(this.listId).subscribe(r => this.todoList = r);
+    this.todoService.getListById(this.listId).subscribe(r => {
+      this.todoList = r;
+      this.sortElements();
+    });
   }
 
   ngOnChanges() {
@@ -26,7 +33,17 @@ export class TodoListViewComponent implements OnInit {
   }
 
   openNewElementDialog() {
+    this.showNewElementDialog = true;
+  }
 
+  createNewElement() {
+    this.newElement.listId = this.listId;
+    this.newElement.description = '';
+    this.todoService.createNewElement(this.newElement).subscribe(r => {
+      this.todoList = r;
+      this.showNewElementDialog = false;
+      this.sortElements();
+    });
   }
 
   deleteList() {
@@ -40,4 +57,13 @@ export class TodoListViewComponent implements OnInit {
       this.eventType.emit(EventType.PRIMARY_CHANGE);
     });
   }
+
+  refresh(event: EventType) {
+    this.sortElements();
+  }
+
+  private sortElements() {
+    this.todoList.elements = this.sortingService.sortByDone(this.todoList.elements);
+  }
+
 }
