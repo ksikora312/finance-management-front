@@ -27,6 +27,7 @@ import { TodoListViewComponent } from './components/todo-list-view/todo-list-vie
 import { AccordionModule } from 'primeng/accordion';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { OutcomeOverviewComponent } from './outcome/outcome-overview/outcome-overview.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DropdownModule } from 'primeng/dropdown';
     RegistrationComponent,
     TodoListOverviewComponent,
     TodoListElementComponent,
-    TodoListViewComponent
+    TodoListViewComponent,
+    OutcomeOverviewComponent
   ],
   imports: [
     AccordionModule,
