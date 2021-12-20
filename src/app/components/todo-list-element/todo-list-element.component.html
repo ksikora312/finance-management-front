@@ -1,17 +1,17 @@
-<div class="grid border-round" [style.background-color]="element.done? 'var(--bluegray-100)' : 'white'">
-    <div class="flex mr-3">
+<div class="grid mt-1">
+    <div class="border-left-3 flex pl-3 mr-3" [style.border-color]="element.done? 'var(--green-400)' : 'var(--yellow-500)'">
         <p-checkbox [(ngModel)]="element.done" [binary]="true" (click)="markElement()"></p-checkbox>
     </div>
     <div class="col-11">
         <div class="flex flex-column">
             <div class="p-component">
-                <h3>{{element.name}}</h3>
+                <h3 [class.line-through]="element.done">{{element.name}}</h3>
             </div>
-            <div class="mb-2 p-component">
+            <div class="p-component">
                 <span class="font-bold">priority: </span>
                 {{element.priority}}
             </div>
-            <div class="mb-2 p-component">
+            <div class="p-component">
                 <span class="font-bold">due date: </span>
                 {{element.dueDate}}
             </div>
