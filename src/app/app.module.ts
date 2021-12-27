@@ -28,6 +28,8 @@ import { AccordionModule } from 'primeng/accordion';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { OutcomeOverviewComponent } from './outcome/outcome-overview/outcome-overview.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { OutcomeOverviewComponent } from './outcome/outcome-overview/outcome-ove
     AppRoutingModule,
     CalendarModule,
     DropdownModule,
+    SelectButtonModule,
+    InputNumberModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

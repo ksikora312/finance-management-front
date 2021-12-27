@@ -1,1 +1,86 @@
-<p>outcome-overview works!</p>
+<button pButton class="action-button p-button-submit" (click)="openNewOutcomeDialog()" label="New outcome"></button>
+
+<!-- <form (ngSubmit)="createNewOutcome()"> -->
+<p-dialog [(visible)]="showNewOutcomeDialog">
+    <ng-template pTemplate="header">
+        New outcome
+    </ng-template>
+    <div class="flex justify-content-center mt-2">
+        <p-selectButton [options]="options" [(ngModel)]="selectedOutcome" optionLabel="name"></p-selectButton>
+    </div>
+    <div [ngSwitch]="selectedOutcome.type">
+        <div *ngSwitchCase="outcomeTypeEnum.REGULAR_OUTCOME">
+            <form (ngSubmit)="createNewRegularOutcome()">
+                <div class="flex-column">
+                    <span class="p-float-label text-center mt-4">
+                        <input id="input-outcome-name" type="text" pInputText name="Outcome name"
+                            [(ngModel)]="newRegularOutcome.name">
+                        <label for="input-outcome-name">Name</label>
+                    </span>
+                    <span class="p-float-label text-center mt-4">
+                        <p-inputNumber id="input-outcome-value" [(ngModel)]="newRegularOutcome.value" mode="currency"
+                            name="Outcome value" [maxFractionDigits]="2" currency="PLN" [min]="0.01"></p-inputNumber>
+                        <label for="input-outcome-value">Value</label>
+                    </span>
+                    <span class="p-float-label text-center mt-4">
+                        <p-calendar inputId="input-date" name="Due date" [(ngModel)]="newRegularOutcome.date"
+                            datetime="dd.MM.yyyy" dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
+                        <label for="input-date">Date</label>
+                    </span>
+                    <span class="p-float-label mt-4">
+                        <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+                            [options]="availableCategories.categories" [(ngModel)]="newRegularOutcome.categoryId" name="id"
+                            placeholder="Category"
+                            optionLabel="name" optionValue="id"
+                            ></p-dropdown>
+                    </span>
+                </div>
+                <div class="flex-column mt-4">
+                    <div class="flex justify-content-center">
+                        <button pButton class="action-button p-button-submit" type="submit" label="Create"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngSwitchCase="outcomeTypeEnum.CONTINUITY_OUTCOME">
+            <form (ngSubmit)="createNewContinuityOutcome()">
+                <div class="flex-column">
+                    <span class="p-float-label text-center mt-4">
+                        <input id="input-outcome-name" type="text" pInputText name="Outcome name"
+                            [(ngModel)]="newContinuityOutcome.name">
+                        <label for="input-outcome-name">Name</label>
+                    </span>
+                    <span class="p-float-label text-center mt-4">
+                        <p-inputNumber id="input-outcome-value" [(ngModel)]="newContinuityOutcome.value" mode="currency"
+                            name="Outcome value" [maxFractionDigits]="2" currency="PLN" [min]="0.01"></p-inputNumber>
+                        <label for="input-outcome-value">Value</label>
+                    </span>
+                    <span class="p-float-label text-center mt-4">
+                        <p-inputNumber id="input-outcome-interval" [(ngModel)]="newContinuityOutcome.timeIntervalInDays"
+                            mode="decimal" name="Outcome value" [min]="1"></p-inputNumber>
+                        <label for="input-outcome-interval">Interval [in days]</label>
+                    </span>
+                    <span class="p-float-label mb-4 mt-4">
+                        <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+                        [options]="availableCategories.categories" [(ngModel)]="newContinuityOutcome.categoryId" name="id"
+                        placeholder="Category"
+                        optionLabel="name" optionValue="id"
+                        ></p-dropdown>
+                    </span>
+                    <span>
+                        <p-checkbox [(ngModel)]="newContinuityOutcome.createOutcome" name="create outcome"
+                            [binary]="true" [label]="'Create outcome at creation'" value="false">
+                        </p-checkbox>
+                    </span>
+                </div>
+                <div class="flex-column mt-4">
+                    <div class="flex justify-content-center">
+                        <button pButton class="action-button p-button-submit" type="submit" label="Create"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngSwitchDefault>output2</div>
+    </div>
+</p-dialog>
+<!-- </form> -->
