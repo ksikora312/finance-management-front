@@ -30,6 +30,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { OutcomeOverviewComponent } from './outcome/outcome-overview/outcome-overview.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TabViewModule } from 'primeng/tabview';
+import { SingleOutcomesOverviewComponent } from './outcome/single-outcomes-overview/single-outcomes-overview.component';
+import { ContinuityOutcomesOverviewComponent } from './outcome/continuity-outcomes-overview/continuity-outcomes-overview.component';
+import { ShoppingListOutcomesOverviewComponent } from './outcome/shopping-list-outcomes-overview/shopping-list-outcomes-overview.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
     TodoListOverviewComponent,
     TodoListElementComponent,
     TodoListViewComponent,
-    OutcomeOverviewComponent
+    OutcomeOverviewComponent,
+    SingleOutcomesOverviewComponent,
+    ContinuityOutcomesOverviewComponent,
+    ShoppingListOutcomesOverviewComponent
   ],
   imports: [
     AccordionModule,
@@ -64,6 +71,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     DropdownModule,
     SelectButtonModule,
     InputNumberModule,
+    TabViewModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
