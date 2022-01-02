@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { Categories, OutcomeOverview, OverviewType, Page } from 'src/app/dto/outcome-interface';
+import { Categories, CategorySummary, ChartData, OutcomeOverview, OutcomeSummary, OverviewType, Page } from 'src/app/dto/outcome-interface';
 import { CategoryService } from 'src/app/services/category-service';
 import { OutcomeService } from 'src/app/services/outcome-service';
 import * as moment from 'moment';
@@ -14,16 +14,16 @@ export class SingleOutcomesOverviewComponent implements OnInit {
 
   first = 0;
   rows = 10;
-  
+
   availableCategories: Categories = {
     categories: []
   };
 
   availableTypes = [
-    {name: OverviewType[OverviewType.ALL.valueOf()], type: OverviewType.ALL}, 
-    {name: OverviewType[OverviewType.REGULAR_SINGLE_OUTCOME.valueOf()], type: OverviewType.REGULAR_SINGLE_OUTCOME},
-    {name: OverviewType[OverviewType.CONTINUITY_SINGLE_OUTCOME.valueOf()], type: OverviewType.CONTINUITY_SINGLE_OUTCOME},
-    {name: OverviewType[OverviewType.SHOPPING_LIST_SINGLE_OUTCOME.valueOf()], type: OverviewType.SHOPPING_LIST_SINGLE_OUTCOME}];
+    { name: OverviewType[OverviewType.ALL.valueOf()], type: OverviewType.ALL },
+    { name: OverviewType[OverviewType.REGULAR_SINGLE_OUTCOME.valueOf()], type: OverviewType.REGULAR_SINGLE_OUTCOME },
+    { name: OverviewType[OverviewType.CONTINUITY_SINGLE_OUTCOME.valueOf()], type: OverviewType.CONTINUITY_SINGLE_OUTCOME },
+    { name: OverviewType[OverviewType.SHOPPING_LIST_SINGLE_OUTCOME.valueOf()], type: OverviewType.SHOPPING_LIST_SINGLE_OUTCOME }];
 
   defaultStartDate: string = this.defaultStartDateString();
   filterOverviewType: OverviewType = OverviewType.ALL;
@@ -32,6 +32,15 @@ export class SingleOutcomesOverviewComponent implements OnInit {
   filterEndDate?: string = undefined;
 
   outcomes: Page<OutcomeOverview> = {} as Page<OutcomeOverview>;
+  outcomesSummary: OutcomeSummary = {} as OutcomeSummary;
+
+  chartData: any;
+  outcomesData: any;
+  valuesChartOptions: any;
+  outcomesChartOptions: any;
+
+  chartColors: Array<string> = [];
+
   constructor(private outcomeService: OutcomeService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
@@ -39,6 +48,11 @@ export class SingleOutcomesOverviewComponent implements OnInit {
       this.outcomes = r;
       this.first = 0;
     });
+    this.outcomeService.getSummary(this.filterOverviewType, this.filterStartDate, this.filterEndDate, this.filterCategoryId).subscribe(r => {
+      this.outcomesSummary = r;
+      this.chartColors = [];
+      this.prepareChartData();
+    })
     this.categoryService.getCategories().subscribe(r => {
       this.availableCategories = r;
     });
@@ -53,9 +67,9 @@ export class SingleOutcomesOverviewComponent implements OnInit {
   }
 
   load(event: LazyLoadEvent) {
-    const pageNumber = event.first!/event.rows!;
+    const pageNumber = event.first! / event.rows!;
     const pageSize = event.rows!;
-    this.outcomeService.getOverview(this.filterOverviewType, pageNumber, pageSize, 
+    this.outcomeService.getOverview(this.filterOverviewType, pageNumber, pageSize,
       this.filterStartDate, this.filterEndDate, this.filterCategoryId)
       .subscribe(r => this.outcomes = r);
   }
@@ -65,4 +79,94 @@ export class SingleOutcomesOverviewComponent implements OnInit {
     let mom = moment(now).subtract(1, 'months').format('DD.MM.YYYY');
     return mom;
   }
+
+  private prepareChartData() {
+    this.chartData = {
+      labels: this.outcomesSummary.dates,
+      datasets: this.valueDatasets()
+    };
+    this.outcomesData = {
+      labels: this.outcomesSummary.dates,
+      datasets: this.outcomeDatasets()
+    };
+    this.setValuesChartOptions();
+    this.setOutcomesChartOptions();
+  }
+
+
+  private valueDatasets(): Array<ChartData> {
+    let array = [] as Array<ChartData>;
+    this.outcomesSummary.outcomesByCategories.forEach((sum: CategorySummary) => {
+      let randomColor = '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
+      this.chartColors.push(randomColor);
+      array.push({
+        label: sum.category,
+        data: sum.values,
+        tension: .4,
+        borderColor: randomColor
+      });
+    })
+    return array;
+  }
+
+  private outcomeDatasets(): Array<ChartData> {
+    let array = [] as Array<ChartData>;
+    let colorIndex = 0;
+    this.outcomesSummary.outcomesByCategories.forEach((sum: CategorySummary) => {
+      let randomColor = this.chartColors[colorIndex];
+      colorIndex++;
+      array.push({
+        label: sum.category,
+        data: sum.outcomes,
+        tension: .4,
+        backgroundColor: randomColor
+      });
+    })
+    return array;
+  }
+
+  private setValuesChartOptions() {
+    this.valuesChartOptions = {
+      legend: {
+        position: 'bottom'
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Outcome values by period',
+          font: {
+            size: 34,
+          },
+        },
+        legend: {
+          labels: {
+            color: '#495057',
+          }
+        }
+      },
+    };
+  }
+
+  private setOutcomesChartOptions() {
+    this.outcomesChartOptions = {
+      legend: {
+        position: 'bottom'
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'Number of outcomes in period',
+          font: {
+            size: 34,
+          },
+        },
+        legend: {
+          labels: {
+            color: '#495057',
+          }
+        }
+      },
+    };
+  }
+
 }

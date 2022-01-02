@@ -37,6 +37,7 @@ import { ShoppingListOutcomesOverviewComponent } from './outcome/shopping-list-o
 import { FieldsetModule } from 'primeng/fieldset';
 import { SingleOutcomeDetailsComponent } from './outcome/single-outcome-details/single-outcome-details.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { PaginatorModule } from 'primeng/paginator';
     TabViewModule,
     FieldsetModule,
     PaginatorModule,
+    ChartModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

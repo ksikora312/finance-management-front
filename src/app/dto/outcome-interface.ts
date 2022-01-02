@@ -71,3 +71,24 @@ export interface Page<T> {
     numberOfElements: number;
     empty: boolean;
 }
+
+export interface CategorySummary {
+    category: string;
+    moneySpent: number;
+    values: Array<number>;
+    outcomes: Array<number>;
+}
+
+export interface OutcomeSummary {
+    dates: Array<string>;
+    outcomesByCategories: Array<CategorySummary>;
+    moneySpent: number;
+}
+
+export interface ChartData {
+    label: string;
+    data: Array<number>;
+    tension: number;
+    borderColor?: string;
+    backgroundColor?: string;
+}

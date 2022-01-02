@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { NewContinuityOutcome, NewRegularOutcome, OutcomeOverview, OverviewType, Page } from "../dto/outcome-interface";
+import { NewContinuityOutcome, NewRegularOutcome, OutcomeOverview, OutcomeSummary, OverviewType, Page } from "../dto/outcome-interface";
 
 @Injectable({
     providedIn: 'root'
@@ -47,4 +47,22 @@ export class OutcomeService {
         return this.httpClient.get(url, {params: params}) as Observable<Page<OutcomeOverview>>;
     }
 
+
+    getSummary(type: OverviewType, startDate?: string, endDate?: string, categoryId?: number): Observable<OutcomeSummary> {
+        const url = `${this.outcomeBaseUrl}`;
+        let params = new HttpParams();
+        params = params.append('type', OverviewType[type]);
+        if(startDate) {
+            let normalizedStartDate = new DatePipe('en-US').transform(startDate!, 'dd-MM-yyyy') as string;
+            params = params.append('startDate', normalizedStartDate);
+        }
+        if(endDate) {
+            let normalizedEndDate = new DatePipe('en-US').transform(endDate!, 'dd-MM-yyyy') as string;
+            params = params.append('endDate', normalizedEndDate);
+        }
+        if(categoryId) {
+            params = params.append('category', categoryId!);
+        }
+        return this.httpClient.get(url, {params: params}) as Observable<OutcomeSummary>;
+    }
 }

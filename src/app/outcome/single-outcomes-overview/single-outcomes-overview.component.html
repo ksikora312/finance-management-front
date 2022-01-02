@@ -24,8 +24,17 @@
         <button pButton label="Apply filters" icon="pi pi-check" class="p-button-warning" (click)="applyFilters()"></button>
     </div>
 </p-toolbar>
-<p>SUMMARY + CHART</p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 <!-- SUMMARY + CHART -->
+<div class="grid">
+    <div class="col-6 card">
+        <p-chart type="line" [data]="chartData" [options]="valuesChartOptions"></p-chart>
+    </div>
+    <div class="col-6">
+        <p-chart type="bar" [data]="outcomesData" [options]="outcomesChartOptions"></p-chart>
+    </div>
+</div>
+
 
 <p-table #table [value]="outcomes.content" dataKey="id" [paginator]="true" [rows]="10"
     [totalRecords]="outcomes.totalElements" [showCurrentPageReport]="true" responsiveLayout="scroll" [(first)]="first"
