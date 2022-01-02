@@ -38,6 +38,9 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { SingleOutcomeDetailsComponent } from './outcome/single-outcome-details/single-outcome-details.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { ChartModule } from 'primeng/chart';
+import { ShoppingListOverviewComponent } from './shopping-list/shopping-list-overview/shopping-list-overview.component';
+import { ShoppingListViewComponent } from './shopping-list/shopping-list-view/shopping-list-view.component';
+import { ShoppingListElementComponent } from './shopping-list/shopping-list-element/shopping-list-element.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { ChartModule } from 'primeng/chart';
     SingleOutcomesOverviewComponent,
     ContinuityOutcomesOverviewComponent,
     ShoppingListOutcomesOverviewComponent,
-    SingleOutcomeDetailsComponent
+    SingleOutcomeDetailsComponent,
+    ShoppingListOverviewComponent,
+    ShoppingListViewComponent,
+    ShoppingListElementComponent
   ],
   imports: [
     AccordionModule,
