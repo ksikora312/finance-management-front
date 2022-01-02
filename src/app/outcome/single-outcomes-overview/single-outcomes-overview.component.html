@@ -1,10 +1,35 @@
-<p>Filter bar</p><br><br><br><br>
 <!-- FILTER BAR -->
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <p-dropdown class="mx-2" inputId="input-type" [style]="{ width:'100%' }" appendTo="body" [options]="availableTypes"
+            [(ngModel)]="filterOverviewType" placeholder="Type" optionLabel="name" optionValue="type"></p-dropdown>
+
+        <span class="p-float-label text-center mx-2">
+            <p-calendar inputId="input-startDate" name="Start date" [placeholder]="defaultStartDate" [(ngModel)]="filterStartDate" datetime="dd.MM.yyyy"
+                dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
+        </span>
+
+        <span class="p-float-label text-center mx-2">
+            <p-calendar inputId="input-endDate" name="End date" [(ngModel)]="filterEndDate" datetime="dd.MM.yyyy"
+                dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
+            <label for="input-endDate">End date</label>
+        </span>
+
+        <p-dropdown class="mx-2" inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+            [options]="availableCategories.categories" [(ngModel)]="filterCategoryId" name="id" placeholder="Category"
+            optionLabel="name" optionValue="id"></p-dropdown>
+    </div>
+
+    <div class="p-toolbar-group-right">
+        <button pButton label="Apply filters" icon="pi pi-check" class="p-button-warning" (click)="applyFilters()"></button>
+    </div>
+</p-toolbar>
 <p>SUMMARY + CHART</p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <!-- SUMMARY + CHART -->
 
-<p-table #table [value]="outcomes.content" dataKey="id" [paginator]="true" [rows]="10" [totalRecords]="outcomes.totalElements" 
-[showCurrentPageReport]="true" responsiveLayout="scroll" [(first)]="first" [lazy]="true" (onLazyLoad)="load($event)">
+<p-table #table [value]="outcomes.content" dataKey="id" [paginator]="true" [rows]="10"
+    [totalRecords]="outcomes.totalElements" [showCurrentPageReport]="true" responsiveLayout="scroll" [(first)]="first"
+    [lazy]="true" (onLazyLoad)="load($event)">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4 rem"></th>
@@ -17,9 +42,10 @@
     <ng-template pTemplate="body" let-outcome let-expanded="expanded">
         <tr>
             <td>
-                <button type="button" pButton pRipple [pRowToggler]="outcome" 
-                class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
-            </button>
+                <button type="button" pButton pRipple [pRowToggler]="outcome"
+                    class="p-button-text p-button-rounded p-button-plain"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                </button>
             </td>
             <td>{{ outcome.name }}</td>
             <td>{{ outcome.value }}</td>
@@ -28,24 +54,10 @@
     </ng-template>
 
     <ng-template pTemplate="rowexpansion" let-outcome>
-         <app-single-outcome-details [outcome]="outcome"></app-single-outcome-details>
+        <app-single-outcome-details [outcome]="outcome"></app-single-outcome-details>
     </ng-template>
 
     <ng-template pTemplate="paginatorleft">
         <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-table>
-
-<!-- <p-panel [toggleable]="true" header="Outcomes">
-    <p-fieldset class="mb-1" *ngFor="let outcome of outcomes.content" [toggleable]="true" [collapsed]="true">
-        <ng-template pTemplate="header" class="font-normal">
-            <div>
-                <span class="font-bold">Name: </span>
-                <span class="font-normal">{{outcome.name}}</span>
-                <span class="ml-4 font-bold">Value: </span>
-                <span class="font-normal">{{outcome.value}}</span>
-            </div>
-        </ng-template>
-        <app-single-outcome-details [outcome]="outcome"></app-single-outcome-details>
-    </p-fieldset>
-</p-panel> -->
