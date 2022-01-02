@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LoginDto } from 'src/app/dto/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginSuccess = false;
   model: LoginDto = {login: '', password: ''};
     
-  constructor(private loginService: UserService, private authService: AuthService, private dialogService: DialogService, private dialogRef: DynamicDialogRef) {
+  constructor(private loginService: UserService, private authService: AuthService, private dialogService: DialogService, private dialogRef: DynamicDialogRef, private router: Router) {
   }
   
   ngOnInit() {
@@ -30,6 +31,9 @@ export class LoginComponent implements OnInit {
       this.authService.login(token.token);
       this.incorrectCredentials = false;
       this.loginSuccess = true;
+      this.dialogRef.close();
+      this.router.navigate(['/outcomes/view']);
+
     }, error => {
       console.log("incorrect cred")
       console.log(error);
