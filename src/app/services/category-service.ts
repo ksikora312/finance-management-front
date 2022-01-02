@@ -18,4 +18,9 @@ export class CategoryService {
         return this.httpClient.get(this.cateogoryUrl) as Observable<Categories>;
     }
 
+    addCategory(name: string): Observable<any> {
+        const url = `${this.cateogoryUrl}/${name}`;
+        return this.httpClient.post(url, null);
+    }
+
 }

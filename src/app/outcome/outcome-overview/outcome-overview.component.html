@@ -1,4 +1,7 @@
-<button pButton class="action-button p-button-submit" (click)="openNewOutcomeDialog()" label="New outcome"></button>
+<button pButton class="mx-1 action-button p-button-submit" (click)="openNewOutcomeDialog()"
+    label="New outcome"></button>
+<button pButton class="mx-1 action-button p-button-submit" (click)="openNewCategoryDialog()"
+    label="New category"></button>
 
 <p-tabView>
     <p-tabPanel header="Outcomes">
@@ -12,7 +15,6 @@
     </p-tabPanel>
 </p-tabView>
 
-<!-- <form (ngSubmit)="createNewOutcome()"> -->
 <p-dialog [(visible)]="showNewOutcomeDialog">
     <ng-template pTemplate="header">
         New outcome
@@ -41,10 +43,8 @@
                     </span>
                     <span class="p-float-label mt-4">
                         <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
-                            [options]="availableCategories.categories" [(ngModel)]="newRegularOutcome.categoryId" name="id"
-                            placeholder="Category"
-                            optionLabel="name" optionValue="id"
-                            ></p-dropdown>
+                            [options]="availableCategories.categories" [(ngModel)]="newRegularOutcome.categoryId"
+                            name="id" placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
                     </span>
                 </div>
                 <div class="flex-column mt-4">
@@ -74,10 +74,8 @@
                     </span>
                     <span class="p-float-label mb-4 mt-4">
                         <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
-                        [options]="availableCategories.categories" [(ngModel)]="newContinuityOutcome.categoryId" name="id"
-                        placeholder="Category"
-                        optionLabel="name" optionValue="id"
-                        ></p-dropdown>
+                            [options]="availableCategories.categories" [(ngModel)]="newContinuityOutcome.categoryId"
+                            name="id" placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
                     </span>
                     <span>
                         <p-checkbox [(ngModel)]="newContinuityOutcome.createOutcome" name="create outcome"
@@ -95,4 +93,23 @@
         <div *ngSwitchDefault>output2</div>
     </div>
 </p-dialog>
-<!-- </form> -->
+
+<p-dialog [(visible)]="showNewCategoryDialog">
+    <ng-template pTemplate="header">
+        New category
+    </ng-template>
+    <form (ngSubmit)="createNewCategory()">
+        <div class="flex-column">
+            <span class="p-float-label text-center mt-4">
+                <input id="input-category-name" type="text" pInputText name="Category name"
+                    [(ngModel)]="newCategory">
+                <label for="input-category-name">Name</label>
+            </span>
+        </div>
+        <div class="flex-column mt-4">
+            <div class="flex justify-content-center">
+                <button pButton class="action-button p-button-submit" type="submit" label="Create"></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

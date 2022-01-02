@@ -22,18 +22,20 @@ interface Outcome {
 export class OutcomeOverviewComponent implements OnInit {
 
   showNewOutcomeDialog = false;
+  showNewCategoryDialog = false;
   regularOutcome = true;
   continuityOutcome = false;
   selectedOutcome: Outcome;
   outcomeTypeEnum: typeof OutcomeType = OutcomeType;
   options: Outcome[];
-
+  
   availableCategories: Categories = {
     categories: []
   };
-
+  
   newRegularOutcome = {} as NewRegularOutcome;
   newContinuityOutcome = {} as NewContinuityOutcome;
+  newCategory: string = '';
 
   constructor(private outcomeService: OutcomeService, private categoryService: CategoryService) { 
     this.options = [
@@ -53,6 +55,10 @@ export class OutcomeOverviewComponent implements OnInit {
     this.showNewOutcomeDialog = true;
   }
 
+  openNewCategoryDialog() {
+    this.showNewCategoryDialog = true;
+  }
+
   createNewRegularOutcome() {
     this.outcomeService.addRegularOutcome(this.newRegularOutcome).subscribe(r => this.showNewOutcomeDialog = false);
   }
@@ -60,5 +66,12 @@ export class OutcomeOverviewComponent implements OnInit {
   createNewContinuityOutcome() {
     this.newContinuityOutcome.createOutcome = this.newContinuityOutcome.createOutcome? true: false;
     this.outcomeService.addContinuityOutcome(this.newContinuityOutcome).subscribe(r => this.showNewOutcomeDialog = false);
+  }
+
+  createNewCategory() {
+    this.categoryService.addCategory(this.newCategory).subscribe(r => {
+      this.ngOnInit();
+      this.showNewCategoryDialog = false;
+    });
   }
 }
