@@ -34,6 +34,9 @@ import { TabViewModule } from 'primeng/tabview';
 import { SingleOutcomesOverviewComponent } from './outcome/single-outcomes-overview/single-outcomes-overview.component';
 import { ContinuityOutcomesOverviewComponent } from './outcome/continuity-outcomes-overview/continuity-outcomes-overview.component';
 import { ShoppingListOutcomesOverviewComponent } from './outcome/shopping-list-outcomes-overview/shopping-list-outcomes-overview.component';
+import { FieldsetModule } from 'primeng/fieldset';
+import { SingleOutcomeDetailsComponent } from './outcome/single-outcome-details/single-outcome-details.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { ShoppingListOutcomesOverviewComponent } from './outcome/shopping-list-o
     OutcomeOverviewComponent,
     SingleOutcomesOverviewComponent,
     ContinuityOutcomesOverviewComponent,
-    ShoppingListOutcomesOverviewComponent
+    ShoppingListOutcomesOverviewComponent,
+    SingleOutcomeDetailsComponent
   ],
   imports: [
     AccordionModule,
@@ -72,6 +76,8 @@ import { ShoppingListOutcomesOverviewComponent } from './outcome/shopping-list-o
     SelectButtonModule,
     InputNumberModule,
     TabViewModule,
+    FieldsetModule,
+    PaginatorModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

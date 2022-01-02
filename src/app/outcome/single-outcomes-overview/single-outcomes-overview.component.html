@@ -1,1 +1,51 @@
-<p>single-outcomes-overview works!</p>
+<p>Filter bar</p><br><br><br><br>
+<!-- FILTER BAR -->
+<p>SUMMARY + CHART</p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!-- SUMMARY + CHART -->
+
+<p-table #table [value]="outcomes.content" dataKey="id" [paginator]="true" [rows]="10" [totalRecords]="outcomes.totalElements" 
+[showCurrentPageReport]="true" responsiveLayout="scroll" [(first)]="first" [lazy]="true" (onLazyLoad)="load($event)">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 4 rem"></th>
+            <th style="width: 10%">Name</th>
+            <th style="width: 10%">Value</th>
+            <th style="width: 70%"></th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-outcome let-expanded="expanded">
+        <tr>
+            <td>
+                <button type="button" pButton pRipple [pRowToggler]="outcome" 
+                class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+            </button>
+            </td>
+            <td>{{ outcome.name }}</td>
+            <td>{{ outcome.value }}</td>
+            <td></td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" let-outcome>
+         <app-single-outcome-details [outcome]="outcome"></app-single-outcome-details>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-table>
+
+<!-- <p-panel [toggleable]="true" header="Outcomes">
+    <p-fieldset class="mb-1" *ngFor="let outcome of outcomes.content" [toggleable]="true" [collapsed]="true">
+        <ng-template pTemplate="header" class="font-normal">
+            <div>
+                <span class="font-bold">Name: </span>
+                <span class="font-normal">{{outcome.name}}</span>
+                <span class="ml-4 font-bold">Value: </span>
+                <span class="font-normal">{{outcome.value}}</span>
+            </div>
+        </ng-template>
+        <app-single-outcome-details [outcome]="outcome"></app-single-outcome-details>
+    </p-fieldset>
+</p-panel> -->
