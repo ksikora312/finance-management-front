@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ChangeListName, NewTodoList, NewTodoListElement, TodoList, TodoListElement, TodoListsOverview } from '../dto/list.interface';
+import { ChangeListName, NewTodoList, NewTodoListElement, TodoList, TodoListElement, ListsOverview } from '../dto/list.interface';
 import { DatePipe } from '@angular/common';
 
 @Injectable({
@@ -27,13 +27,12 @@ export class TodoListService {
   }
 
   markListAsPrimary(listId: number): Observable<TodoList> {
-    console.log("MARKING LIST " + listId + " as primary");
     const url = `${this.TODO_LIST_BASE_ENDPOINT}/primary/${listId}`;
     return this.httpCLient.put(url, null) as Observable<TodoList>;
   }
 
-  getListsOverview(): Observable<TodoListsOverview> {
-    return this.httpCLient.get(this.TODO_LISTS_OVERVIEW_ENDPOINT) as Observable<TodoListsOverview>;
+  getListsOverview(): Observable<ListsOverview> {
+    return this.httpCLient.get(this.TODO_LISTS_OVERVIEW_ENDPOINT) as Observable<ListsOverview>;
   }
 
   getListById(listId: number): Observable<TodoList> {

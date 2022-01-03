@@ -1,1 +1,77 @@
-<p>shopping-list-overview works!</p>
+<p-panel>
+    <ng-template pTemplate="header">
+        Shopping lists
+    </ng-template>
+    <div class="p-toolbar-group-left">
+        <button pButton class="p-button-success p-button-rounded mr-1" label="List" icon="pi pi-plus" iconPos="left"
+            (click)="openNewListDialog()"></button>
+    </div>
+</p-panel>
+
+<p-accordion *ngFor="let overview of overviews.lists">
+    <div class="mb-2">
+        <p-accordionTab [selected]="overview.isPrimary">
+            <ng-template pTemplate="header">
+                {{overview.name}}
+                <div class="p-toolbar-group-right">
+                    <button pButton type="button" icon="pi pi-pencil" class="ml-1 p-button-text p-button-rounded p-button-warning"
+                        (click)="$event.stopPropagation(); openEditListName(overview.listId, overview.name)">
+                </button>
+                </div>
+            </ng-template>
+            <app-shopping-list-view [listId]="overview.listId" (eventType)="refresh($event)">
+            </app-shopping-list-view>
+        </p-accordionTab>
+    </div>
+</p-accordion>
+
+<form (ngSubmit)="createNewList()">
+    <p-dialog [(visible)]="showNewListDialog">
+        <ng-template pTemplate="header">
+            New todo list
+        </ng-template>
+        <div class="flex-column">
+            <span class="p-float-label text-center my-4">
+                <input id="input-list-name" type="text" pInputText name="List name" [(ngModel)]="newListModel.name">
+                <label for="input-list-name">List name</label>
+            </span>
+
+            <span class="p-float-label my-4">
+                <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+                    [options]="availableCategories.categories" [(ngModel)]="newListModel.categoryId"
+                    name="id" placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
+            </span>
+
+            <span class="mt-4">
+                <p-checkbox [(ngModel)]="newListModel.isPrimary" name="primary" [binary]="true" [label]="'default?'">
+                </p-checkbox>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+                <div class="flex justify-content-center">
+                    <button pButton class="action-button p-button-submit" type="submit"
+                        label="Create"></button>
+                </div>
+        </ng-template>
+    </p-dialog>
+</form>
+
+<form (ngSubmit)="editListName()">
+    <p-dialog [(visible)]="showEditListNameDialog">
+        <ng-template pTemplate="header">
+            Change list name
+        </ng-template>
+        <div class="flex-column">
+            <span class="p-float-label text-center mb-2">
+                <input id="input-list-name" type="text" pInputText name="List name" [(ngModel)]="listNameModel.name">
+                <label for="input-list-name">List name</label>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+                <div class="flex justify-content-center">
+                    <button pButton class="action-button p-button-submit" type="submit"
+                        label="Change name"></button>
+                </div>
+        </ng-template>
+    </p-dialog>
+</form>

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogContent } from 'primeng/dynamicdialog/dynamicdialogcontent';
-import { ChangeListName, EventType, NewTodoList, TodoListsOverview } from 'src/app/dto/list.interface';
+import { ChangeListName, EventType, NewTodoList, ListsOverview } from 'src/app/dto/list.interface';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { TodoListService } from 'src/app/services/todo-list.service';
 })
 export class TodoListOverviewComponent implements OnInit {
 
-  overviews = {} as TodoListsOverview;  
+  overviews = {} as ListsOverview;  
   showNewListDialog = false;
   showEditListNameDialog = false;
   newListModel = {name: '', isPrimary: false} as NewTodoList;

@@ -1,1 +1,50 @@
-<p>shopping-list-view works!</p>
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <button pButton class="p-button-success p-button-rounded mr-1" label="Element" icon="pi pi-plus" iconPos="left"
+            (click)="openNewElementDialog()"></button>
+        <button *ngIf="shoppingList.isPrimary" [disabled]="true" pButton type="button" class="p-button-danger p-button-rounded" icon="pi pi-heart" ></button>
+        <button *ngIf="!shoppingList.isPrimary" pButton type="button" class="p-button-text p-button-danger p-button-rounded" icon="pi pi-heart"
+            (click)="markAsPrimary()"></button>
+    </div>
+    <div class="p-toolbar-group-right">
+        <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteList()"></button>
+    </div>
+</p-toolbar>
+<div class="table">
+    <div *ngFor="let element of shoppingList.elements">
+        <app-shopping-list-element [element]="element" (eventType)="refresh($event)"></app-shopping-list-element>
+        <hr style="width: 100%;border-color: var(--blue-400);">
+    </div>
+</div>
+
+<form (ngSubmit)="createNewElement()">
+    <p-dialog [(visible)]="showNewElementDialog">
+        <ng-template pTemplate="header">
+            New element
+        </ng-template>
+        <div class="flex-column">
+            <span class="p-float-label text-center mt-4">
+                <input id="input-element-name" type="text" pInputText name="Element name" [(ngModel)]="newElement.name">
+                <label for="input-element-name">Element name</label>
+            </span>
+
+            <span class="p-float-label text-center mt-4">
+                <p-inputNumber id="input-outcome-value" [(ngModel)]="newElement.value" mode="currency"
+                    name="Outcome value" [maxFractionDigits]="2" currency="PLN" [min]="0.01"></p-inputNumber>
+                <label for="input-outcome-value">Value</label>
+            </span>
+
+            <span class="p-float-label my-4">
+                <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+                    [options]="availableCategories.categories" [(ngModel)]="newElement.categoryId"
+                    name="id" placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+                <div class="flex justify-content-center">
+                    <button pButton class="action-button p-button-submit" type="submit"
+                        label="Create"></button>
+                </div>
+        </ng-template>
+    </p-dialog>
+</form>
