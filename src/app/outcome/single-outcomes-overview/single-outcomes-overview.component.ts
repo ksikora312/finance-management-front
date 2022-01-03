@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { Categories, CategorySummary, ChartData, OutcomeOverview, OutcomeSummary, OverviewType, Page } from 'src/app/dto/outcome-interface';
+import { Categories, Category, CategorySummary, ChartData, OutcomeOverview, OutcomeSummary, OverviewType, Page } from 'src/app/dto/outcome-interface';
 import { CategoryService } from 'src/app/services/category-service';
 import { OutcomeService } from 'src/app/services/outcome-service';
 import * as moment from 'moment';
@@ -20,10 +20,9 @@ export class SingleOutcomesOverviewComponent implements OnInit {
   };
 
   availableTypes = [
-    { name: OverviewType[OverviewType.ALL.valueOf()], type: OverviewType.ALL },
-    { name: OverviewType[OverviewType.REGULAR_SINGLE_OUTCOME.valueOf()], type: OverviewType.REGULAR_SINGLE_OUTCOME },
-    { name: OverviewType[OverviewType.CONTINUITY_SINGLE_OUTCOME.valueOf()], type: OverviewType.CONTINUITY_SINGLE_OUTCOME },
-    { name: OverviewType[OverviewType.SHOPPING_LIST_SINGLE_OUTCOME.valueOf()], type: OverviewType.SHOPPING_LIST_SINGLE_OUTCOME }];
+    { name: 'All', type: OverviewType.ALL },
+    { name: 'Regular outcomes', type: OverviewType.REGULAR_SINGLE_OUTCOME },
+    { name: 'Continuity outcomes', type: OverviewType.CONTINUITY_SINGLE_OUTCOME }];
 
   defaultStartDate: string = this.defaultStartDateString();
   filterOverviewType: OverviewType = OverviewType.ALL;
@@ -54,8 +53,13 @@ export class SingleOutcomesOverviewComponent implements OnInit {
       this.prepareChartData();
     })
     this.categoryService.getCategories().subscribe(r => {
+      let defaultAbstractCategory:Category = {id: -1, name: 'All'};
       this.availableCategories = r;
-    });
+      this.availableCategories.categories.splice(0, 0, defaultAbstractCategory);
+      if(!this.filterCategoryId) {
+        this.filterCategoryId = this.availableCategories.categories[0].id;
+      }
+   });
   }
 
   applyFilters() {

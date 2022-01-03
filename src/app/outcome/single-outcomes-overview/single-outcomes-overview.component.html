@@ -1,12 +1,16 @@
 <!-- FILTER BAR -->
 <p-toolbar>
-    <div class="p-toolbar-group-left">
-        <p-dropdown class="mx-2" inputId="input-type" [style]="{ width:'100%' }" appendTo="body" [options]="availableTypes"
-            [(ngModel)]="filterOverviewType" placeholder="Type" optionLabel="name" optionValue="type"></p-dropdown>
+    <div class="p-toolbar-group-left m-1">
 
         <span class="p-float-label text-center mx-2">
-            <p-calendar inputId="input-startDate" name="Start date" [placeholder]="defaultStartDate" [(ngModel)]="filterStartDate" datetime="dd.MM.yyyy"
-                dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
+        <p-dropdown class="mx-2" inputId="input-type" [style]="{ width:'100%' }" appendTo="body"
+            [options]="availableTypes" [(ngModel)]="filterOverviewType" placeholder="Type" optionLabel="name"
+            optionValue="type"></p-dropdown>
+            <label for="input-type">Type</label>
+            </span>
+        <span class="p-float-label text-center mx-2">
+            <p-calendar inputId="input-startDate" name="Start date" [placeholder]="defaultStartDate"
+                [(ngModel)]="filterStartDate" datetime="dd.MM.yyyy" dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
         </span>
 
         <span class="p-float-label text-center mx-2">
@@ -15,22 +19,26 @@
             <label for="input-endDate">End date</label>
         </span>
 
-        <p-dropdown class="mx-2" inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
-            [options]="availableCategories.categories" [(ngModel)]="filterCategoryId" name="id" placeholder="Category"
-            optionLabel="name" optionValue="id"></p-dropdown>
+        <span class="p-float-label text-center mx-2">
+            <p-dropdown class="mx-2" inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+                [options]="availableCategories.categories" [(ngModel)]="filterCategoryId" name="id"
+                placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
+            <label for="input-category">Category</label>
+        </span>
     </div>
 
     <div class="p-toolbar-group-right">
-        <button pButton label="Apply filters" icon="pi pi-check" class="p-button-warning" (click)="applyFilters()"></button>
+        <button pButton label="Apply filters" icon="pi pi-check" class="p-button-warning"
+            (click)="applyFilters()"></button>
     </div>
 </p-toolbar>
 
 <!-- SUMMARY + CHART -->
 <div class="grid">
-    <div class="col-6 card">
+    <div class="lg:col-6 md:col-12 sm:col-12 card">
         <p-chart type="line" [data]="chartData" [options]="valuesChartOptions"></p-chart>
     </div>
-    <div class="col-6">
+    <div class="lg:col-6 md:col-12 sm:col-12 card">
         <p-chart type="bar" [data]="outcomesData" [options]="outcomesChartOptions"></p-chart>
     </div>
 </div>
@@ -64,9 +72,5 @@
 
     <ng-template pTemplate="rowexpansion" let-outcome>
         <app-single-outcome-details [outcome]="outcome"></app-single-outcome-details>
-    </ng-template>
-
-    <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-table>

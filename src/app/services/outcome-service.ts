@@ -40,7 +40,7 @@ export class OutcomeService {
             let normalizedEndDate = new DatePipe('en-US').transform(endDate!, 'dd-MM-yyyy') as string;
             params = params.append('endDate', normalizedEndDate);
         }
-        if(categoryId) {
+        if(categoryId && categoryId > 0) {
             params = params.append('category', categoryId!);
         }
 
@@ -60,7 +60,7 @@ export class OutcomeService {
             let normalizedEndDate = new DatePipe('en-US').transform(endDate!, 'dd-MM-yyyy') as string;
             params = params.append('endDate', normalizedEndDate);
         }
-        if(categoryId) {
+        if(categoryId && categoryId > 0) {
             params = params.append('category', categoryId!);
         }
         return this.httpClient.get(url, {params: params}) as Observable<OutcomeSummary>;
