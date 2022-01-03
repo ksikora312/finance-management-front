@@ -41,6 +41,10 @@ import { ChartModule } from 'primeng/chart';
 import { ShoppingListOverviewComponent } from './shopping-list/shopping-list-overview/shopping-list-overview.component';
 import { ShoppingListViewComponent } from './shopping-list/shopping-list-view/shopping-list-view.component';
 import { ShoppingListElementComponent } from './shopping-list/shopping-list-element/shopping-list-element.component';
+import { ContinuityOutcomeDetailsComponent } from './outcome/continuity-outcome-details/continuity-outcome-details.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +61,8 @@ import { ShoppingListElementComponent } from './shopping-list/shopping-list-elem
     SingleOutcomeDetailsComponent,
     ShoppingListOverviewComponent,
     ShoppingListViewComponent,
-    ShoppingListElementComponent
+    ShoppingListElementComponent,
+    ContinuityOutcomeDetailsComponent,
   ],
   imports: [
     AccordionModule,
@@ -86,6 +91,7 @@ import { ShoppingListElementComponent } from './shopping-list/shopping-list-elem
     FieldsetModule,
     PaginatorModule,
     ChartModule,
+    ConfirmDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

@@ -92,3 +92,31 @@ export interface ChartData {
     borderColor?: string;
     backgroundColor?: string;
 }
+
+export interface ContinuityOutcomeDetails {
+    id: number;
+    name: string;
+    active: boolean;
+    addedDate: string;
+    lastUsage: string;
+    nextUsage: string;
+    value: number;
+    category: string;
+    timeIntervalInDays: number;
+}
+
+export interface UpdateOutcome {
+    id: number;
+    name: string;
+    value: number;
+    date: string;
+    categoryId: number;
+}
+
+export interface UpdateContinuityOutcome {
+    id: number;
+    name: string;
+    value: number;
+    timeIntervalInDays: number;
+    categoryId: number;
+}

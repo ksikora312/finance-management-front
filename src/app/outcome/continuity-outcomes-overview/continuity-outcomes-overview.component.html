@@ -1,1 +1,34 @@
-<p>continuity-outcomes-overview works!</p>
+<p-table #table [value]="continuityOutcomes.content" dataKey="id" [paginator]="true" [rows]="10"
+    [totalRecords]="continuityOutcomes.totalElements" [showCurrentPageReport]="true" responsiveLayout="scroll"
+    [(first)]="first" [lazy]="true" (onLazyLoad)="load($event)">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 4 rem"></th>
+            <th style="width: 10%">Name</th>
+            <th style="width: 10%">Value</th>
+            <th style="width: 70%"></th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-outcome let-expanded="expanded">
+        <tr>
+            <td>
+                <button type="button" pButton pRipple [pRowToggler]="outcome"
+                    class="p-button-text p-button-rounded p-button-plain"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                </button>
+            </td>
+            <td>{{ outcome.name }}</td>
+            <td>{{ outcome.value }}</td>
+            <td></td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" appendTo="body" let-outcome>
+        <tr>
+            <td colspan="4">
+                <app-continuity-outcome-details [id]="outcome.id"></app-continuity-outcome-details>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

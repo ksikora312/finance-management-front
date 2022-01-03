@@ -1,14 +1,63 @@
-<div class="ml-4">
-    <p>
-        <span class="font-bold">Category: </span>
-        <span class="font-normal">{{outcome.category}}</span>
-    </p>
-    <p class="pt-1">
-        <span class="font-bold">Date: </span>
-        <span class="font-normal">{{outcome.date}}</span>
-    </p>
-    <p class="pt-1">
-        <span class="font-bold">Type: </span>
-        <span class="font-normal">{{outcome.type}}</span>
-    </p>
+<div class="flex flex-row">
+    <div class="flex flex-column mx-4">
+        <div>
+
+            <p>
+                <span class="font-bold">Category: </span>
+                <span class="font-normal">{{outcome.category}}</span>
+            </p>
+            <p class="pt-1">
+                <span class="font-bold">Date: </span>
+                <span class="font-normal">{{outcome.date}}</span>
+            </p>
+            <p class="pt-1">
+                <span class="font-bold">Type: </span>
+                <span class="font-normal">{{outcome.type}}</span>
+            </p>
+        </div>
+    </div>
+    <div class="ml-4 flex align-self-center">
+        <button pButton type="button" icon="pi pi-pencil" class="p-button-lg ml-1 p-button-text p-button-rounded p-button-warning" 
+        (click)="openEditOutcomeDialog()"></button>
+    </div>
+    <div class="ml-4 flex align-self-center">
+        <button pButton type="button" icon="pi pi-trash" (click)="confirmDialog()" class="p-button-danger p-button-text p-button-lg"></button>
+    </div>
 </div>
+
+<p-confirmDialog [style]="{width: '20vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
+<p-dialog [(visible)]="showUpdateOutcomeDialog">
+    <ng-template pTemplate="header">
+        Update outcome
+    </ng-template>
+    <form (ngSubmit)="updateOutcome()">
+        <div class="flex-column">
+            <span class="p-float-label text-center mt-4">
+                <input id="input-outcome-name" type="text" pInputText name="Outcome name"
+                    [(ngModel)]="update.name">
+                <label for="input-outcome-name">Name</label>
+            </span>
+            <span class="p-float-label text-center mt-4">
+                <p-inputNumber id="input-outcome-value" [(ngModel)]="update.value" mode="currency"
+                    name="Outcome value" [maxFractionDigits]="2" currency="PLN" [min]="0.01"></p-inputNumber>
+                <label for="input-outcome-value">Value</label>
+            </span>
+            <span class="p-float-label text-center mt-4">
+                <p-calendar inputId="input-date" name="Date" [(ngModel)]="update.date"
+                    datetime="dd.MM.yyyy" dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
+                <label for="input-date">Date</label>
+            </span>
+            <span class="p-float-label mt-4">
+                <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+                    [options]="availableCategories.categories" [(ngModel)]="update.categoryId"
+                    name="id" placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
+            </span>
+        </div>
+        <div class="flex-column mt-4">
+            <div class="flex justify-content-center">
+                <button pButton class="action-button p-button-submit" type="submit" label="Update"></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

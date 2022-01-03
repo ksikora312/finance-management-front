@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { NewContinuityOutcome, NewRegularOutcome, OutcomeOverview, OutcomeSummary, OverviewType, Page } from "../dto/outcome-interface";
+import { ContinuityOutcomeDetails, NewContinuityOutcome, NewRegularOutcome, OutcomeOverview, OutcomeSummary, OverviewType, Page, UpdateContinuityOutcome, UpdateOutcome } from "../dto/outcome-interface";
 
 @Injectable({
     providedIn: 'root'
@@ -64,5 +64,29 @@ export class OutcomeService {
             params = params.append('category', categoryId!);
         }
         return this.httpClient.get(url, {params: params}) as Observable<OutcomeSummary>;
+    }
+
+    getOutcomesByContinuityOutcome(outcomeId: number, pageNumber: number, pageSize: number): Observable<Page<OutcomeOverview>> {
+        const url = `${this.outcomeBaseUrl}/continuity/outcomes/${outcomeId}`;
+        let params = new HttpParams();
+        params = params.append('pageSize', pageSize);
+        params = params.append('pageNumber', pageNumber);
+        return this.httpClient.get(url, {params: params}) as Observable<Page<OutcomeOverview>>;
+    }
+
+    getContinuityOutcomeDetails(outcomeId: number): Observable<ContinuityOutcomeDetails> {
+        const url = `${this.outcomeBaseUrl}/continuity/${outcomeId}`;
+        return this.httpClient.get(url) as Observable<ContinuityOutcomeDetails>;
+    }
+
+    updateOutcome(update: UpdateOutcome): Observable<any> {
+        update.date = new DatePipe('en-US').transform(update.date, 'dd.MM.yyyy')!;
+        const url = `${this.outcomeBaseUrl}`;
+        return this.httpClient.put(url, update);
+    }
+
+    updateContinuityOUtcome(update: UpdateContinuityOutcome): Observable<any> {
+        const url = `${this.outcomeBaseUrl}/continuity`;
+        return this.httpClient.put(url, update);
     }
 }
