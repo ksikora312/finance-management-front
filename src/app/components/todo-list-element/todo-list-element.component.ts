@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EventType, TodoList, TodoListElement } from 'src/app/dto/todo-list.interface';
+import { EventType, TodoList, TodoListElement } from 'src/app/dto/list.interface';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({

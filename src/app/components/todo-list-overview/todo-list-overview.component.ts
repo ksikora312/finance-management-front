@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogContent } from 'primeng/dynamicdialog/dynamicdialogcontent';
-import { ChangeListName, EventType, NewTodoList, TodoListsOverview } from 'src/app/dto/todo-list.interface';
+import { ChangeListName, EventType, NewTodoList, TodoListsOverview } from 'src/app/dto/list.interface';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
 @Component({

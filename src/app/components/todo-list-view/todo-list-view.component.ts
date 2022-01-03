@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EventType, NewTodoListElement, Priority, TodoList } from 'src/app/dto/todo-list.interface';
+import { EventType, NewTodoListElement, Priority, TodoList } from 'src/app/dto/list.interface';
 import { SortingService } from 'src/app/services/SortingService';
 import { TodoListService } from 'src/app/services/todo-list.service';
 

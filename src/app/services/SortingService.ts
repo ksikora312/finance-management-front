@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { TodoListElement } from "../dto/todo-list.interface";
+import { TodoListElement } from "../dto/list.interface";
 
 @Injectable({
     providedIn: 'root'
