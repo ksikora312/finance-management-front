@@ -21,25 +21,11 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.items = [
-      { label: 'Outcomes', icon: 'pi pi-dollar',
-      items: [
-        { label: 'New outcome', icon: 'pi pi-plus', routerLink: ['/outcomes/new'] },
-        { label: 'View outcomes', icon: 'pi pi-list', routerLink: ['/outcomes/view']}
-    ]
+      { label: 'Outcomes', icon: 'pi pi-dollar', routerLink: ['/outcomes/view'],
   },{
-    label: 'Shopping list', icon: 'pi pi-tag',
-    items: [
-      { label: 'New list', icon: 'pi pi-plus', routerLink: ['/shopping-list/new/list'] },
-      { label: 'New item', icon: 'pi pi-plus', routerLink: ['/shopping-list/new/item'] },
-      { label: 'View list', icon: 'pi pi-list', routerLink: ['/shopping-list/view'] }
-    ]
+    label: 'Shopping list', icon: 'pi pi-tag', routerLink: ['/shopping-list/view'],
   },{
-    label: 'Todo list', icon: 'pi pi-check-square',
-    items: [
-      { label: 'New list', icon: 'pi pi-plus', routerLink: ['/todo-list/new/list'] },
-      { label: 'New item', icon: 'pi pi-plus', routerLink: ['/todo-list/new/item'] },
-      { label: 'View list', icon: 'pi pi-list', routerLink: ['/todo-list/view'] }
-    ]
+    label: 'Todo list', icon: 'pi pi-check-square', routerLink: ['/todo-list/view'],
   }];
   }
 
