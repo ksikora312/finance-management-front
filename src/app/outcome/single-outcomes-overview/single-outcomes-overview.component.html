@@ -3,11 +3,11 @@
     <div class="p-toolbar-group-left m-1">
 
         <span class="p-float-label text-center mx-2">
-        <p-dropdown class="mx-2" inputId="input-type" [style]="{ width:'100%' }" appendTo="body"
-            [options]="availableTypes" [(ngModel)]="filterOverviewType" placeholder="Type" optionLabel="name"
-            optionValue="type"></p-dropdown>
+            <p-dropdown class="mx-2" inputId="input-type" [style]="{ width:'100%' }" appendTo="body"
+                [options]="availableTypes" [(ngModel)]="filterOverviewType" placeholder="Type" optionLabel="name"
+                optionValue="type"></p-dropdown>
             <label for="input-type">Type</label>
-            </span>
+        </span>
         <span class="p-float-label text-center mx-2">
             <p-calendar inputId="input-startDate" name="Start date" [placeholder]="defaultStartDate"
                 [(ngModel)]="filterStartDate" datetime="dd.MM.yyyy" dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
@@ -50,28 +50,33 @@
             Summary for {{ outcomesSummary.startDate }} - {{ outcomesSummary.endDate }}
         </p>
 
-        <p class="font-bold text-lg my-2">
-            By categories
-        </p>
+        <div *ngIf="outcomesSummary.outcomesByCategories">
 
-        <div class="grid" *ngFor="let categorySummary of outcomesSummary.outcomesByCategories">
-            <div class="col-2">
-                <p>
-                    <span class="font-bold">Category: </span>
-                    <span class="font-normal">{{ categorySummary.category }}</span>
+            <div *ngIf="outcomesSummary.outcomesByCategories.length > 1">
+                <p class="font-bold text-lg my-2">
+                    By categories
                 </p>
-            </div>
-            <div class="col-2">
-                <p>
-                    <span class="font-bold">Money spent: </span>
-                    <span class="font-normal">{{ categorySummary.moneySpent }}</span>
-                </p>
-            </div>
-            <div class="col-8">
-                <p>
-                    <span class="font-bold">Number of outcomes: </span>
-                    <span class="font-normal">{{ categorySummary.outcomesSum }}</span>
-                </p>
+
+                <div class="grid" *ngFor="let categorySummary of outcomesSummary.outcomesByCategories">
+                    <div class="col-2">
+                        <p>
+                            <span class="font-bold">Category: </span>
+                            <span class="font-normal">{{ categorySummary.category }}</span>
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <p>
+                            <span class="font-bold">Money spent: </span>
+                            <span class="font-normal">{{ categorySummary.moneySpent }}</span>
+                        </p>
+                    </div>
+                    <div class="col-8">
+                        <p>
+                            <span class="font-bold">Number of outcomes: </span>
+                            <span class="font-normal">{{ categorySummary.outcomesSum }}</span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         <p class="font-bold text-lg my-2">
