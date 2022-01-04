@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ChangeListName, EventType, ListsOverview, NewShoppingList } from 'src/app/dto/list.interface';
-import { Categories } from 'src/app/dto/outcome-interface';
-import { CategoryService } from 'src/app/services/category-service';
 import { ShoppingListService } from 'src/app/services/shopping-list-service';
 
 @Component({
@@ -18,18 +16,11 @@ export class ShoppingListOverviewComponent implements OnInit {
   newListModel = {name: '', isPrimary: false} as NewShoppingList;
   listNameModel = {} as ChangeListName;
 
-  availableCategories: Categories = {
-    categories: []
-  };
-
-  constructor(private listService: ShoppingListService, private categoryService: CategoryService, private dialogService: DialogService, private view: ViewContainerRef) { }
+  constructor(private listService: ShoppingListService, private dialogService: DialogService, private view: ViewContainerRef) { }
 
   ngOnInit(): void {
     this.listService.getListsOverview().subscribe(r => { 
       this.overviews = r 
-    });
-    this.categoryService.getCategories().subscribe(r => {
-      this.availableCategories = r;
     });
   }
 

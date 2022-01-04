@@ -28,18 +28,12 @@
 <form (ngSubmit)="createNewList()">
     <p-dialog [(visible)]="showNewListDialog">
         <ng-template pTemplate="header">
-            New todo list
+            New shopping list
         </ng-template>
         <div class="flex-column">
             <span class="p-float-label text-center my-4">
                 <input id="input-list-name" type="text" pInputText name="List name" [(ngModel)]="newListModel.name">
                 <label for="input-list-name">List name</label>
-            </span>
-
-            <span class="p-float-label my-4">
-                <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
-                    [options]="availableCategories.categories" [(ngModel)]="newListModel.categoryId"
-                    name="id" placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
             </span>
 
             <span class="mt-4">

@@ -20,20 +20,14 @@ export class ShoppingListViewComponent implements OnInit {
   showNewElementDialog = false;
   newElement = {} as NewShoppingListElement;
 
-  availableCategories: Categories = {
-    categories: []
-  };
 
   constructor(private listService: ShoppingListService, 
-    private sortingService: SortingService, private categoryService: CategoryService) { }
+    private sortingService: SortingService) { }
 
   ngOnInit(): void {
     this.listService.getListById(this.listId).subscribe(r => {
       this.shoppingList = r;
       this.sortElements();
-    });
-    this.categoryService.getCategories().subscribe(r => {
-      this.availableCategories = r;
     });
   }
 

@@ -13,7 +13,6 @@ export class ShoppingListElementComponent implements OnInit {
   element: ShoppingListElement = {
     elementId: 0,
     name: '',
-    category: '',
     value: 0,
     done: false,
   }

@@ -59,27 +59,23 @@ export enum EventType {
 export interface NewShoppingListElement {
     listId: number;
     name: string;
-    categoryId: number;
     value: number;
 }
 
 export interface NewShoppingList {
     name: string;
     isPrimary: boolean;
-    categoryId: number;
 }
 
 export interface ShoppingListElement {
     elementId: number;
     name: string;
-    category: string;
     value: number;
     done: boolean;
 }
 
 export interface ShoppingList {
     listId: number;
-    category: string;
     name: string;
     done: boolean;
     isPrimary: boolean;
