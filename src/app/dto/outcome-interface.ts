@@ -77,12 +77,16 @@ export interface CategorySummary {
     moneySpent: number;
     values: Array<number>;
     outcomes: Array<number>;
+    outcomesSum: number;
 }
 
 export interface OutcomeSummary {
+    startDate: string;
+    endDate: string;
     dates: Array<string>;
     outcomesByCategories: Array<CategorySummary>;
     moneySpent: number;
+    totalOutcomes: number;
 }
 
 export interface ChartData {

@@ -50,7 +50,6 @@ export class SingleOutcomeDetailsComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete outcome with name: ' + this.outcome.name + '?',
       accept: () => {
-
       }
     });
   }

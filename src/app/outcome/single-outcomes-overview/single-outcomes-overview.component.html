@@ -33,7 +33,7 @@
     </div>
 </p-toolbar>
 
-<!-- SUMMARY + CHART -->
+<!-- CHART -->
 <div class="grid">
     <div class="lg:col-6 md:col-12 sm:col-12 card">
         <p-chart type="line" [data]="chartData" [options]="valuesChartOptions"></p-chart>
@@ -43,8 +43,58 @@
     </div>
 </div>
 
+<!-- SUMMARY -->
+<div class="my-4">
+    <p-panel header="Outcomes summary" [toggleable]="true" [collapsed]="true">
+        <p class="font-bold text-lg my-4">
+            Summary for {{ outcomesSummary.startDate }} - {{ outcomesSummary.endDate }}
+        </p>
 
-<p-table #table [value]="outcomes.content" dataKey="id" [paginator]="true" [rows]="10"
+        <p class="font-bold text-lg mb-4">
+            By categories
+        </p>
+
+        <div class="grid" *ngFor="let categorySummary of outcomesSummary.outcomesByCategories">
+            <div class="col-2">
+                <p>
+                    <span class="font-bold">Category: </span>
+                    <span class="font-normal">{{ categorySummary.category }}</span>
+                </p>
+            </div>
+            <div class="col-2">
+                <p>
+                    <span class="font-bold">Money spent: </span>
+                    <span class="font-normal">{{ categorySummary.moneySpent }}</span>
+                </p>
+            </div>
+            <div class="col-8">
+                <p>
+                    <span class="font-bold">Number of outcomes: </span>
+                    <span class="font-normal">{{ categorySummary.outcomesSum }}</span>
+                </p>
+            </div>
+        </div>
+        <p class="font-bold text-lg my-4">
+            Overall
+        </p>
+        <div class="grid">
+            <div class="col-2">
+                <p>
+                    <span class="font-bold">Money spent: </span>
+                    <span class="font-normal">{{ outcomesSummary.moneySpent }} PLN</span>
+                </p>
+            </div>
+            <div class="col-2">
+                <p>
+                    <span class="font-bold">Number of outcomes: </span>
+                    <span class="font-normal">{{ outcomesSummary.totalOutcomes }}</span>
+                </p>
+            </div>
+        </div>
+    </p-panel>
+</div>
+
+<p-table #table class="mt-4" [value]="outcomes.content" dataKey="id" [paginator]="true" [rows]="10"
     [totalRecords]="outcomes.totalElements" [showCurrentPageReport]="true" responsiveLayout="scroll" [(first)]="first"
     [lazy]="true" (onLazyLoad)="load($event)">
     <ng-template pTemplate="header">
