@@ -81,3 +81,11 @@ export interface ShoppingList {
     isPrimary: boolean;
     elements: Array<ShoppingListElement>;
 }
+
+export interface ListToOutcome {
+    listId: number;
+    name: string;
+    value: number;
+    date: string;
+    categoryId: number;
+}

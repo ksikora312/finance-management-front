@@ -1,8 +1,9 @@
+import { DatePipe } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { ChangeListName, ListsOverview, NewShoppingList, NewShoppingListElement, ShoppingList, ShoppingListElement } from "../dto/list.interface";
+import { ChangeListName, ListsOverview, ListToOutcome, NewShoppingList, NewShoppingListElement, ShoppingList, ShoppingListElement } from "../dto/list.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -57,5 +58,11 @@ export class ShoppingListService {
     deleteList(listId: number): Observable<any> {
         const url = `${this.SHOPPING_LIST_BASE_ENDPOINT}/${listId}`;
         return this.httpClient.delete(url);
+    }
+
+    listToOutcome(content: ListToOutcome): Observable<any> {
+        content.date = new DatePipe('en-US').transform(content.date, 'dd.MM.yyyy')!;
+        const url = `${this.SHOPPING_LIST_BASE_ENDPOINT}/outcome`;
+        return this.httpClient.post(url, content);
     }
 }
