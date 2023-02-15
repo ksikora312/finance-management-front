@@ -14,9 +14,15 @@
             <ng-template pTemplate="header">
                 {{overview.name}}
                 <div class="p-toolbar-group-right">
-                    <button pButton type="button" icon="pi pi-pencil" class="ml-1 p-button-text p-button-rounded p-button-warning"
+                    <button pButton type="button" icon="pi pi-pencil"
+                        class="ml-1 p-button-text p-button-rounded p-button-warning"
                         (click)="$event.stopPropagation(); openEditListName(overview.listId, overview.name)">
-                </button>
+                    </button>
+
+                    <button pButton type="button" icon="pi pi-money-bill"
+                        class="ml-1 p-button-text p-button-rounded p-button-secondary"
+                        (click)="$event.stopPropagation(); openToOutcomeDialog(overview.listId, overview.name)">
+                    </button>
                 </div>
             </ng-template>
             <app-shopping-list-view [listId]="overview.listId" (eventType)="refresh($event)">
@@ -42,10 +48,9 @@
             </span>
         </div>
         <ng-template pTemplate="footer">
-                <div class="flex justify-content-center">
-                    <button pButton class="action-button p-button-submit" type="submit"
-                        label="Create"></button>
-                </div>
+            <div class="flex justify-content-center">
+                <button pButton class="action-button p-button-submit" type="submit" label="Create"></button>
+            </div>
         </ng-template>
     </p-dialog>
 </form>
@@ -62,10 +67,45 @@
             </span>
         </div>
         <ng-template pTemplate="footer">
-                <div class="flex justify-content-center">
-                    <button pButton class="action-button p-button-submit" type="submit"
-                        label="Change name"></button>
-                </div>
+            <div class="flex justify-content-center">
+                <button pButton class="action-button p-button-submit" type="submit" label="Change name"></button>
+            </div>
+        </ng-template>
+    </p-dialog>
+</form>
+
+
+<form (ngSubmit)="toOutcome()">
+    <p-dialog [(visible)]="showToOutcomeDialog">
+        <ng-template pTemplate="header">
+            Move as outcome
+        </ng-template>
+        <div class="flex-column">
+            <span class="p-float-label text-center mt-4">
+                <input id="input-outcome-name" type="text" pInputText name="Outcome name"
+                    [(ngModel)]="listToOutcome.name">
+                <label for="input-outcome-name">Name</label>
+            </span>
+            <span class="p-float-label text-center mt-4">
+                <p-inputNumber id="input-outcome-value" [(ngModel)]="listToOutcome.value" mode="currency"
+                    name="Outcome value" [maxFractionDigits]="2" currency="PLN" [min]="0.01"></p-inputNumber>
+                <label for="input-outcome-value">Value</label>
+            </span>
+            <span class="p-float-label text-center mt-4">
+                <p-calendar inputId="input-date" name="Due date" [(ngModel)]="listToOutcome.date"
+                    datetime="dd.MM.yyyy" dateFormat="dd.mm.yy" appendTo="body"></p-calendar>
+                <label for="input-date">Date</label>
+            </span>
+            <span class="p-float-label my-4">
+                <p-dropdown inputId="input-category" [style]="{ width:'100%' }" appendTo="body"
+                    [options]="availableCategories.categories" [(ngModel)]="listToOutcome.categoryId"
+                    name="id" placeholder="Category" optionLabel="name" optionValue="id"></p-dropdown>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-center">
+                <button pButton class="action-button p-button-submit" type="submit" label="Move"></button>
+            </div>
         </ng-template>
     </p-dialog>
 </form>

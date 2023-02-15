@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ChangeListName, EventType, ListsOverview, NewShoppingList } from 'src/app/dto/list.interface';
+import { ChangeListName, EventType, ListsOverview, ListToOutcome, NewShoppingList } from 'src/app/dto/list.interface';
+import { Categories } from 'src/app/dto/outcome-interface';
+import { CategoryService } from 'src/app/services/category-service';
 import { ShoppingListService } from 'src/app/services/shopping-list-service';
 
 @Component({
@@ -16,11 +18,22 @@ export class ShoppingListOverviewComponent implements OnInit {
   newListModel = {name: '', isPrimary: false} as NewShoppingList;
   listNameModel = {} as ChangeListName;
 
-  constructor(private listService: ShoppingListService, private dialogService: DialogService, private view: ViewContainerRef) { }
+  listToOutcome: ListToOutcome = {} as ListToOutcome;
+  showToOutcomeDialog = false;
+
+  availableCategories: Categories = {
+    categories: []
+  };
+
+  constructor(private listService: ShoppingListService, private categoryService: CategoryService, private dialogService: DialogService, private view: ViewContainerRef) { }
 
   ngOnInit(): void {
     this.listService.getListsOverview().subscribe(r => { 
-      this.overviews = r 
+      this.overviews = r;
+      console.log(r);
+    });
+    this.categoryService.getCategories().subscribe(r => {
+      this.availableCategories = r;
     });
   }
 
@@ -45,6 +58,19 @@ export class ShoppingListOverviewComponent implements OnInit {
     this.listService.changeListName(this.listNameModel).subscribe(r => 
       this.refresh());
       this.showEditListNameDialog = false;
+  }
+
+  openToOutcomeDialog(id: number, name: string) {
+    this.listToOutcome.listId = id;
+    this.listToOutcome.name = name;
+    this.showToOutcomeDialog = true;
+  }
+
+  toOutcome() {
+    this.listService.listToOutcome(this.listToOutcome).subscribe(r => {
+      this.refresh();
+      this.showToOutcomeDialog = false;
+    });
   }
 
   refresh(eventType?: EventType) {
